@@ -4,7 +4,7 @@ import { email } from '../data/userValue.js';
 import { password } from '../data/userValue.js';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import Foam from '../componets/Foam.jsx';
+import Foam from '../componets/LoginFoam.jsx';
 import Background from '../componets/Backgound.jsx';
 
 export default function Login () {

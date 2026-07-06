@@ -2,14 +2,41 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import McDnaldLogo from '/McDonaldM.png';
 import McDonaldFoamPic from '/McDonaldWRB.jpg';
-import { userValue } from "../data/userValue";
-import InputField from './InputField.jsx';
+import { userValue } from "../data/userValue.js";
+import FormField from '../foam/FormField.jsx';
 
 export default function Foam () {
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const loginFields = [
+    {
+      id: 'email',
+      name: 'email',
+      type: 'email',
+      label: 'Email',
+      placeholder: 'user@mcdonalds.com',
+      required: true,
+    },
+    {
+      id: 'password',
+      name: 'password',
+      type: 'password',
+      label: 'Password',
+      placeholder: '**************',
+      required: true,
+    },
+  ];
+
+  const handleFieldChange = (fieldName) => (e) => {
+    if (fieldName === 'email') {
+      setEmailInput(e.target.value);
+    } else if (fieldName === 'password') {
+      setPasswordInput(e.target.value);
+    }
+  };
 
   const handleSubmit = (e) =>
   {
@@ -39,26 +66,14 @@ export default function Foam () {
         <img src={ McDonaldFoamPic } alt="McDonald's" className="h-16" />
         <h1 className="font-medium text-xl">Helpdesk Login</h1>
         <form className="flex flex-col gap-4" onSubmit={ handleSubmit }>
-          <InputField
-            id="email"
-            name="email"
-            type="email"
-            label="Email"
-            placeholder="user@mcdonalds.com"
-            required
-            value={emailInput}
-            onChange={(e) => setEmailInput(e.target.value)}
-          />
-          <InputField
-            id="password"
-            name="password"
-            type="password"
-            label="Password"
-            placeholder="**************"
-            required
-            value={passwordInput}
-            onChange={(e) => setPasswordInput(e.target.value)}
-          />
+          {loginFields.map((field) => (
+            <FormField
+              key={field.name}
+              field={field}
+              value={field.name === 'email' ? emailInput : passwordInput}
+              onChange={handleFieldChange(field.name)}
+            />
+          ))}
           <button type="submit" className='bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-32 rounded'>
             {loading ? 'Logging in...' : 'Login'}
           </button>
