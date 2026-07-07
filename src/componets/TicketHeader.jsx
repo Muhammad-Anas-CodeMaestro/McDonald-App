@@ -1,8 +1,18 @@
 import { useState } from "react";
-import { faBarsProgress, faCheckDouble, faFileCircleXmark, faSquarePlus, faArrowDown, faEye, faTrash, faXmark, faArrowUpFromBracket, faSliders, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon";
+import upload from '/upload.png'
+import download from '/download.png'
+import view from "/view.png"
+import deleteicon from "/delete.png"
+import x_mark from '/x_mark.png'
+import slider from '/slider.png'
+import search from "/search.png"
+import sms_tracking from "/sms_tracking.png"
+import sms_star from "/sms_star.png";
+import sms_minus from "/sms_minus.png"
 import { useLocation, useNavigate } from 'react-router-dom';
 import TicketFormFields from '../foam/TicketFormFields.jsx';
+import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon";
+import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function TicketHeader ()
 {
@@ -12,10 +22,10 @@ export default function TicketHeader ()
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false)
   const [formData, setFormData] = useState({
-    userName: 'Saif Khan',
-    userLocation: 'Barkat Market',
-    department: 'Finance',
-    issue: '-select-',
+    userName: '',
+    userLocation: '',
+    department: '',
+    issue: '',
     mainCategory: '',
     secondCategory: '',
     title: '',
@@ -141,19 +151,22 @@ export default function TicketHeader ()
   const items = [
     {
       key: 'in-progress',
-      icon: faBarsProgress,
+      img: sms_tracking,
+      alt: 'sms_tracking',
       text: 'In-Progress',
       route: '/mytickets/inprogress'
     },
     {
       key: 'resolved',
-      icon: faCheckDouble,
+      img: sms_star,
+      alt: 'sms_star',
       text: 'Resolved',
       route: '/mytickets/resolved'
     },
     {
       key: 'closed',
-      icon: faFileCircleXmark,
+      img: sms_minus,
+      alt: 'sms_minus',
       text: 'Closed',
       route: '/mytickets/closed'
     }
@@ -191,14 +204,14 @@ export default function TicketHeader ()
             const itemClass = `flex items-center cursor-pointer rounded-lg px-3 py-2 ${ isActive ? 'text-yellow-500 underline decoration-yellow-500 underline-offset-4' : 'text-gray-700 hover:bg-slate-100' }`;
             return (
               <div className={ itemClass } key={ item.key } onClick={ () => navigate(item.route) }>
-                <FontAwesomeSvgIcon icon={ item.icon } className={ `h-5 w-5` } />
+                <img src={item.img} alt={item.alt} />
                 <h4 className={ `font-light pl-2` }>{ item.text }</h4>
               </div>
             )
           }) }
         </div>
         <div className="flex items-center gap-4">
-          <FontAwesomeSvgIcon icon={ faSliders } className="h-6 w-6 cursor-pointer" onClick={() => setIsFilterOpen((prev) => !prev)} />
+          <img src={slider} alt="sliderForFilter" onClick={() => setIsFilterOpen((prev) => !prev)} className="cursor-pointer" />
           <button
             type="button"
             className="flex items-center bg-yellow-500 py-2 px-5 rounded-lg cursor-pointer"
@@ -224,7 +237,7 @@ export default function TicketHeader ()
               type="button"
               className="inline-flex items-center justify-center rounded-lg bg-yellow-500 px-4 py-2 text-sm font-semibol gap-3"
             >
-              <FontAwesomeSvgIcon icon={ faMagnifyingGlass } className="h-4 w-4" />
+              <img src={search} alt="searchicon" />
               Filter Tickets
             </button>
           </div>
@@ -232,19 +245,19 @@ export default function TicketHeader ()
       ) : null }
       { isFormOpen ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/40 p-4">
-          <div className="w-full max-w-4xl max-h-4xl overflow-hidden rounded-2xl bg-white shadow-2xl">
-            <div className="flex items-center justify-between rounded-t-2xl bg-yellow-500 px-2 py-1">
+          <div className="w-full max-w-3xl max-h-4xl overflow-hidden rounded-2xl bg-white shadow-2xl">
+            <div className="flex items-center justify-between rounded-t-2xl bg-yellow-500 px-4 py-1">
               <h3 className="text-xl font-semibold">New Ticket</h3>
               <button
                 type="button"
                 className="text-slate-800"
                 onClick={ () => setIsFormOpen(false) }
               >
-                <FontAwesomeSvgIcon icon={ faXmark } className="h-5 w-5" />
+                <img src={x_mark} alt="close_mark" className="h-3" />
               </button>
             </div>
 
-            <div className="max-h-[85vh] overflow-y-auto px-2 py-3">
+            <div className="max-h-[85vh] overflow-y-auto p-4">
               <form className="space-y-2" onSubmit={ handleSubmit }>
                 <TicketFormFields
                   fields={ ticketFields }
@@ -273,7 +286,7 @@ export default function TicketHeader ()
                           type="button"
                           className="inline-flex w-full items-center justify-center gap-2 border border-slate-300 bg-white p-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
                         >
-                          <FontAwesomeSvgIcon icon={ faArrowUpFromBracket } className="h-4 w-4" />
+                          <img src={upload} alt="uploadicon" />
                           Upload
                         </button>
                       </div>
@@ -293,14 +306,14 @@ export default function TicketHeader ()
                       <tbody>
                         <tr>
                           <td className="border border-slate-300 px-4 py-3">Manager Permission Letter</td>
-                          <td className="border border-slate-300 px-4 py-3 text-yellow-600 items-center">
-                            <FontAwesomeSvgIcon icon={ faArrowDown } className="h-4 w-4" />
+                          <td className="border border-slate-300 px-4 py-3 items-center">
+                            <img src={download} alt="downloadicon"/>
                           </td>
-                          <td className="border border-slate-300 px-4 py-3 text-slate-600">
-                            <FontAwesomeSvgIcon icon={ faEye } className="h-4 w-4" />
+                          <td className="border border-slate-300 px-4 py-3">
+                            <img src={view} alt="viewicone" />
                           </td>
-                          <td className="border border-slate-300 px-4 py-3 text-red-600">
-                            <FontAwesomeSvgIcon icon={ faTrash } className="h-4 w-4" />
+                          <td className="border border-slate-300 px-4 py-3">
+                            <img src={deleteicon} alt="deleteicon" />
                           </td>
                         </tr>
                       </tbody>
@@ -308,10 +321,10 @@ export default function TicketHeader ()
                   </div>
                 </div>
 
-                <div className="flex flex-col items-center gap-2 sm:flex-row sm:justify-end">
+                <div className="flex flex-col items-center justify-center gap-2 w-full sm:flex-row sm:justify-center">
                   <button
                     type="button"
-                    className="border border-slate-200 px-5 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
+                    className="border border-slate-400 px-5 py-2 text-sm font-medium text-slate-700"
                     onClick={ () => setIsFormOpen(false) }
                   >
                     Cancel
