@@ -41,7 +41,7 @@ export const tableData = [
     'OS',
     'The customer is having issue with...',
     '26/02/2025 12:00pm',
-    'New',
+    'In Progress',
     '👁️'
   ],
   [

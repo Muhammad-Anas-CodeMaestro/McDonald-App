@@ -3,11 +3,9 @@ import Slider from "../componets/SideBar";
 import Table from "../componets/Table";
 import TicketHeader from "../componets/TicketHeader";
 import { tableHeaders, tableData } from "../data/userTableValue";
-// import { Flex, Space, Tag } from 'antd';
 
 export default function MyTickets ()
 {
-  // const { Column, ColumnGroup } = antdTable
   return (
     <div className="flex h-screen">
       <div>

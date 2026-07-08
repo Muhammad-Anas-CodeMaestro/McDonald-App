@@ -9,10 +9,10 @@ import search from "/search.png"
 import sms_tracking from "/sms_tracking.png"
 import sms_star from "/sms_star.png";
 import sms_minus from "/sms_minus.png"
+import SCV_icon from "/SCV_icon.png"
+import create_ticket from "/create_ticket.png"
 import { useLocation, useNavigate } from 'react-router-dom';
 import TicketFormFields from '../foam/TicketFormFields.jsx';
-import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon";
-import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function TicketHeader ()
 {
@@ -21,6 +21,7 @@ export default function TicketHeader ()
   const routeCheck = location.pathname.toLowerCase();
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false)
+  const [modalMode, setModalMode] = useState('create');
   const [formData, setFormData] = useState({
     userName: '',
     userLocation: '',
@@ -180,6 +181,11 @@ export default function TicketHeader ()
   const handleSubmit = (e) =>
   {
     e.preventDefault();
+    if (modalMode === 'view') {
+      setIsFormOpen(false);
+      return;
+    }
+
     alert(`Ticket "${ formData.title }" created successfully.`);
     setFormData({
       userName: 'Saif Khan',
@@ -196,7 +202,7 @@ export default function TicketHeader ()
 
   return (
     <div className={ `w-full` }>
-      <div className="flex justify-between w-full items-center-safe">
+      <div className="flex justify-between w-full items-center border-b pb-2 border-slate-200">
         <div className="flex justify-center gap-3">
           { items.map((item) =>
           {
@@ -204,56 +210,63 @@ export default function TicketHeader ()
             const itemClass = `flex items-center cursor-pointer rounded-lg px-3 py-2 ${ isActive ? 'text-yellow-500 underline decoration-yellow-500 underline-offset-4' : 'text-gray-700 hover:bg-slate-100' }`;
             return (
               <div className={ itemClass } key={ item.key } onClick={ () => navigate(item.route) }>
-                <img src={item.img} alt={item.alt} />
+                <img src={ item.img } alt={ item.alt } />
                 <h4 className={ `font-light pl-2` }>{ item.text }</h4>
               </div>
             )
           }) }
         </div>
         <div className="flex items-center gap-4">
-          <img src={slider} alt="sliderForFilter" onClick={() => setIsFilterOpen((prev) => !prev)} className="cursor-pointer" />
+          <img src={ slider } alt="sliderForFilter" onClick={ () => setIsFilterOpen((prev) => !prev) } className="cursor-pointer" />
           <button
             type="button"
             className="flex items-center bg-yellow-500 py-2 px-5 rounded-lg cursor-pointer"
             onClick={ () => setIsFormOpen(true) }
           >
-            <FontAwesomeSvgIcon icon={ faSquarePlus } className="h-5 w-5" />
+            <img src={ create_ticket } alt="createticketicon" />
             <span className="font-light px-3">New Ticket</span>
           </button>
         </div>
       </div>
-      { isFilterOpen ? (
-        <div className="w-full border-y border-slate-200 bg-white p-4 mt-4">
-          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-            <div className="flex-1">
-              <TicketFormFields
-                fields={ filterData }
-                formData={ filterState }
-                onFieldChange={ handleFilterChange }
-                className="grid-cols-1 gap-4 md:grid-cols-2"
-              />
-            </div>
-            <button
-              type="button"
-              className="inline-flex items-center justify-center rounded-lg bg-yellow-500 px-4 py-2 text-sm font-semibol gap-3"
-            >
-              <img src={search} alt="searchicon" />
-              Filter Tickets
-            </button>
+      <div className={ `grid w-full overflow-hidden min-h-0 transition-all duration-1000 ease-in-out ${ isFilterOpen ? "grid-rows-[1fr] opacity-100 py-3" : "grid-rows-[0fr] opacity-0 py-0" }` }>
+        <div className="overflow-hidden flex items-end justify-center gap-2 border-b border-slate-200 bg-white p-2">
+          <div className="flex">
+            <TicketFormFields
+              fields={ filterData }
+              formData={ filterState }
+              onFieldChange={ handleFilterChange }
+              className="grid-cols-1 gap-4 md:grid-cols-2"
+            />
           </div>
+          <button
+            type="button"
+            className="inline-flex h-10 items-center justify-center rounded-lg bg-yellow-500 px-4 text-sm font-semibold gap-3"
+          >
+            <img src={ search } alt="searchicon" />
+            Filter Tickets
+          </button>
         </div>
-      ) : null }
+      </div>
+      <div className="flex justify-between items-center mt-2">
+        <div>
+          <h3 className="text-sm font-light pl-10">entries per page</h3>
+        </div>
+        <div className="flex items-center gap-2 min-w-0">
+          <img src={ SCV_icon } alt="scv_icon" className="h-7" />
+          <input type="search" placeholder="Search" className="bg-gray-200 border border-gray-300 rounded-sm p-2 min-w-0" />
+        </div>
+      </div>
       { isFormOpen ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/40 p-4">
           <div className="w-full max-w-3xl max-h-4xl overflow-hidden rounded-2xl bg-white shadow-2xl">
             <div className="flex items-center justify-between rounded-t-2xl bg-yellow-500 px-4 py-1">
-              <h3 className="text-xl font-semibold">New Ticket</h3>
+              <h3 className="text-xl font-semibold m-0 p-0">New Ticket</h3>
               <button
                 type="button"
                 className="text-slate-800"
                 onClick={ () => setIsFormOpen(false) }
               >
-                <img src={x_mark} alt="close_mark" className="h-3" />
+                <img src={ x_mark } alt="close_mark" className="h-3" />
               </button>
             </div>
 
@@ -286,7 +299,7 @@ export default function TicketHeader ()
                           type="button"
                           className="inline-flex w-full items-center justify-center gap-2 border border-slate-300 bg-white p-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
                         >
-                          <img src={upload} alt="uploadicon" />
+                          <img src={ upload } alt="uploadicon" />
                           Upload
                         </button>
                       </div>
@@ -307,13 +320,13 @@ export default function TicketHeader ()
                         <tr>
                           <td className="border border-slate-300 px-4 py-3">Manager Permission Letter</td>
                           <td className="border border-slate-300 px-4 py-3 items-center">
-                            <img src={download} alt="downloadicon"/>
+                            <img src={ download } alt="downloadicon" />
                           </td>
                           <td className="border border-slate-300 px-4 py-3">
-                            <img src={view} alt="viewicone" />
+                            <img src={ view } alt="viewicone" />
                           </td>
                           <td className="border border-slate-300 px-4 py-3">
-                            <img src={deleteicon} alt="deleteicon" />
+                            <img src={ deleteicon } alt="deleteicon" />
                           </td>
                         </tr>
                       </tbody>
