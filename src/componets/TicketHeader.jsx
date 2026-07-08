@@ -18,7 +18,7 @@ export default function TicketHeader ()
 {
   const navigate = useNavigate()
   const location = useLocation();
-  const routeCheck = location.pathname.toLowerCase();
+  const routeCheck = location.pathname.toLowerCase()
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false)
   const [modalMode, setModalMode] = useState('create');
@@ -207,10 +207,14 @@ export default function TicketHeader ()
           { items.map((item) =>
           {
             const isActive = routeCheck === item.route;
-            const itemClass = `flex items-center cursor-pointer rounded-lg px-3 py-2 ${ isActive ? 'text-yellow-500 underline decoration-yellow-500 underline-offset-4' : 'text-gray-700 hover:bg-slate-100' }`;
+            const itemClass = `flex items-center cursor-pointer rounded-lg px-3 py-2 ${ isActive ? 'border-b-2 border-yellow-500 text-yellow-500' : 'text-gray-700 hover:bg-slate-100' }`;
             return (
               <div className={ itemClass } key={ item.key } onClick={ () => navigate(item.route) }>
-                <img src={ item.img } alt={ item.alt } />
+                <img
+                  src={ item.img }
+                  alt={ item.alt }
+                  style={ isActive ? { filter: 'brightness(0) saturate(100%) invert(77%) sepia(88%) saturate(1000%) hue-rotate(355deg) brightness(102%)' } : undefined }
+                />
                 <h4 className={ `font-light pl-2` }>{ item.text }</h4>
               </div>
             )

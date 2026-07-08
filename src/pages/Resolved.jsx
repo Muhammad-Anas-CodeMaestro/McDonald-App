@@ -2,6 +2,7 @@ import Header from "../componets/Header";
 import Slider from "../componets/SideBar";
 import Table from "../componets/Table";
 import TicketHeader from "../componets/TicketHeader";
+import { tableHeaders, tableData } from "../data/resolvedTableValue";
 
 export default function Resolved ()
 {
@@ -16,7 +17,7 @@ export default function Resolved ()
           <h2 className="font-semibold text-2xl">My Tickets</h2>
           <div className="bg-white p-3 shadow-lg h-fit w-full">
             <TicketHeader />
-            <Table/>
+            <Table headers={tableHeaders} data={tableData} />
           </div>
         </div>
       </div>

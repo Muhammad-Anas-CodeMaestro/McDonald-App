@@ -2,9 +2,9 @@ import Header from "../componets/Header";
 import Slider from "../componets/SideBar";
 import Table from "../componets/Table";
 import TicketHeader from "../componets/TicketHeader";
-import { tableHeaders, tableData } from "../data/inProgressTableValue";
+import { tableHeaders, tableData } from "../data/closedTableValue";
 
-export default function MyTickets ()
+export default function Closed ()
 {
   return (
     <div className="flex h-screen">
@@ -17,9 +17,7 @@ export default function MyTickets ()
           <h2 className="font-semibold text-2xl">My Tickets</h2>
           <div className="bg-white p-3 shadow-lg h-fit w-full">
             <TicketHeader />
-            <Table headers={tableHeaders} data={tableData}  />
-          </div>
-          <div>
+            <Table headers={tableHeaders} data={tableData} />
           </div>
         </div>
       </div>
