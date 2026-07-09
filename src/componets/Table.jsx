@@ -6,22 +6,28 @@ export default function Table({ headers = [], data = [], onAction = null }) {
     title: header,
     dataIndex: header,
     key: `${header}-${index}`,
-    render: (value) => {
+    render: (value, record) => {
       if (header === 'Status') {
         return <StatusCheck status={value} />;
       }
 
       if (header === 'Action') {
+        const isForwardAction = value === 'forward';
+        const actionImage = isForwardAction ? '/frame_forward.png' : '/frame_view.png';
+        const actionAlt = isForwardAction ? 'Forward' : 'View';
+
         return (
           <button
             type="button"
-            onClick={() => onAction?.(value)}
-            className="text-sm hover:text-blue-600"
+            onClick={() => onAction?.(record)}
+            className="flex items-center justify-center text-sm cursor-pointer"
+            aria-label={actionAlt}
           >
-            {value}
+            <img src={actionImage} alt={actionAlt} className="h-5 w-5" />
           </button>
         );
       }
+
       return value;
     },
   }));

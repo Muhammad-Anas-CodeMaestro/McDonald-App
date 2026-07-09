@@ -20,7 +20,7 @@ const baseTickets = [
     description: 'The customer is having issue with...',
     createdAt: '26/02/2025 12:00pm',
     status: 'New',
-    action: '👁️'
+    action: 'view'
   },
   {
     ticketNumber: '2025MCK6497',
@@ -31,7 +31,7 @@ const baseTickets = [
     description: 'The customer is having issue with...',
     createdAt: '26/02/2025 12:00pm',
     status: 'New',
-    action: '👁️'
+    action: 'view'
   },
   {
     ticketNumber: '2025MCK6497',
@@ -42,7 +42,7 @@ const baseTickets = [
     description: 'The customer is having issue with...',
     createdAt: '26/02/2025 12:00pm',
     status: 'In Progress',
-    action: '👁️'
+    action: 'view'
   },
   {
     ticketNumber: '2025MCK6497',
@@ -53,7 +53,7 @@ const baseTickets = [
     description: 'The customer is having issue with...',
     createdAt: '26/02/2025 12:00pm',
     status: 'On Hold',
-    action: '👁️'
+    action: 'view'
   },
   {
     ticketNumber: '2025MCK6497',
@@ -64,7 +64,7 @@ const baseTickets = [
     description: 'The customer is having issue with...',
     createdAt: '26/02/2025 12:00pm',
     status: 'In Progress',
-    action: '👁️'
+    action: 'view'
   },
   {
     ticketNumber: '2025MCK6497',
@@ -75,7 +75,7 @@ const baseTickets = [
     description: 'The customer is having issue with...',
     createdAt: '26/02/2025 12:00pm',
     status: 'In Progress',
-    action: '👁️'
+    action: 'view'
   }
 ];
 

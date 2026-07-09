@@ -3,7 +3,6 @@ import upload from '/upload.png'
 import download from '/download.png'
 import view from "/view.png"
 import deleteicon from "/delete.png"
-import x_mark from '/x_mark.png'
 import slider from '/slider.png'
 import search from "/search.png"
 import sms_tracking from "/sms_tracking.png"
@@ -13,6 +12,7 @@ import SCV_icon from "/SCV_icon.png"
 import create_ticket from "/create_ticket.png"
 import { useLocation, useNavigate } from 'react-router-dom';
 import TicketFormFields from '../foam/TicketFormFields.jsx';
+import ReusableTicketModal from './ReusableTicketModal.jsx';
 
 export default function TicketHeader ()
 {
@@ -260,104 +260,80 @@ export default function TicketHeader ()
           <input type="search" placeholder="Search" className="bg-gray-200 border border-gray-300 rounded-sm p-2 min-w-0" />
         </div>
       </div>
-      { isFormOpen ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/40 p-4">
-          <div className="w-full max-w-3xl max-h-4xl overflow-hidden rounded-2xl bg-white shadow-2xl">
-            <div className="flex items-center justify-between rounded-t-2xl bg-yellow-500 px-4 py-1">
-              <h3 className="text-xl font-semibold m-0 p-0">New Ticket</h3>
-              <button
-                type="button"
-                className="text-slate-800"
-                onClick={ () => setIsFormOpen(false) }
-              >
-                <img src={ x_mark } alt="close_mark" className="h-3" />
-              </button>
+      <ReusableTicketModal
+        open={ isFormOpen }
+        onCancel={ () => setIsFormOpen(false) }
+        title={ modalMode === 'view' ? 'Ticket Details' : 'New Ticket' }
+        mode={ modalMode }
+        onSubmit={ handleSubmit }
+        submitLabel={ modalMode === 'view' ? 'Close' : 'Create Ticket' }
+        cancelLabel="Cancel"
+        width={ 900 }
+      >
+        <form className="space-y-2" onSubmit={ handleSubmit }>
+          <TicketFormFields
+            fields={ ticketFields }
+            formData={ formData }
+            onFieldChange={ handleFieldChange }
+            className="grid-cols-1 md:grid-cols-3"
+          />
+
+          <div className="mt-5 border border-slate-200 p-2  ">
+            <div className=" flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-base font-semibold">Attach Documents/Image</p>
             </div>
 
-            <div className="max-h-[85vh] overflow-y-auto p-4">
-              <form className="space-y-2" onSubmit={ handleSubmit }>
-                <TicketFormFields
-                  fields={ ticketFields }
-                  formData={ formData }
-                  onFieldChange={ handleFieldChange }
-                  className="grid-cols-1 md:grid-cols-3"
-                />
-
-                <div className="border border-slate-200 p-2 mt-5">
-                  <div className=" flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                    <p className="text-base font-semibold">Attach Documents/Image</p>
-                  </div>
-
-                  <div className="grid gap-2 lg:grid-cols-[1.5fr_auto]">
-                    <div className="grid gap-2 sm:grid-cols-10">
-                      <div className="sm:col-span-3 flex flex-col gap-2">
-                        <label className="text-sm font-light text-slate-700">Document/Image Name</label>
-                        <input
-                          type="text"
-                          className="w-full border border-slate-300 bg-white p-2 text-sm focus:outline-none focus:border-yellow-500"
-                        />
-                      </div>
-                      <div className="sm:col-span-2 flex flex-col gap-2">
-                        <label className="text-sm font-light text-slate-700">Attach Document</label>
-                        <button
-                          type="button"
-                          className="inline-flex w-full items-center justify-center gap-2 border border-slate-300 bg-white p-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
-                        >
-                          <img src={ upload } alt="uploadicon" />
-                          Upload
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-2 overflow-x-auto">
-                    <table className="min-w-full border-collapse text-sm">
-                      <thead>
-                        <tr className="bg-slate-200">
-                          <th className="border border-slate-300 px-4 py-3 text-left">Document/Image Name</th>
-                          <th className="border border-slate-300 px-4 py-3 text-left">Download</th>
-                          <th className="border border-slate-300 px-4 py-3 text-left">View</th>
-                          <th className="border border-slate-300 px-4 py-3 text-left">Delete</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="border border-slate-300 px-4 py-3">Manager Permission Letter</td>
-                          <td className="border border-slate-300 px-4 py-3 items-center">
-                            <img src={ download } alt="downloadicon" />
-                          </td>
-                          <td className="border border-slate-300 px-4 py-3">
-                            <img src={ view } alt="viewicone" />
-                          </td>
-                          <td className="border border-slate-300 px-4 py-3">
-                            <img src={ deleteicon } alt="deleteicon" />
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+            <div className="grid gap-2 lg:grid-cols-[1.5fr_auto]">
+              <div className="grid gap-2 sm:grid-cols-10">
+                <div className="sm:col-span-3 flex flex-col gap-2">
+                  <label className="text-sm font-light text-slate-700">Document/Image Name</label>
+                  <input
+                    type="text"
+                    className="w-full border border-slate-300 bg-white p-2 text-sm focus:outline-none focus:border-yellow-500"
+                  />
                 </div>
-
-                <div className="flex flex-col items-center justify-center gap-2 w-full sm:flex-row sm:justify-center">
+                <div className="sm:col-span-2 flex flex-col gap-2">
+                  <label className="text-sm font-light text-slate-700">Attach Document</label>
                   <button
                     type="button"
-                    className="border border-slate-400 px-5 py-2 text-sm font-medium text-slate-700"
-                    onClick={ () => setIsFormOpen(false) }
+                    className="inline-flex w-full items-center justify-center gap-2 border border-slate-300 bg-white p-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
                   >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="bg-yellow-500 px-5 py-2 text-sm font-semibold text-slate-950 shadow-sm"
-                  >
-                    Create Ticket
+                    <img src={ upload } alt="uploadicon" />
+                    Upload
                   </button>
                 </div>
-              </form>
+              </div>
+            </div>
+
+            <div className="mt-2 overflow-x-auto">
+              <table className="min-w-full border-collapse text-sm">
+                <thead>
+                  <tr className="bg-slate-200">
+                    <th className="border border-slate-300 px-4 py-3 text-left">Document/Image Name</th>
+                    <th className="border border-slate-300 px-4 py-3 text-left">Download</th>
+                    <th className="border border-slate-300 px-4 py-3 text-left">View</th>
+                    <th className="border border-slate-300 px-4 py-3 text-left">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="border border-slate-300 px-4 py-3">Manager Permission Letter</td>
+                    <td className="border border-slate-300 px-4 py-3 items-center">
+                      <img src={ download } alt="downloadicon" />
+                    </td>
+                    <td className="border border-slate-300 px-4 py-3">
+                      <img src={ view } alt="viewicone" />
+                    </td>
+                    <td className="border border-slate-300 px-4 py-3">
+                      <img src={ deleteicon } alt="deleteicon" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-        </div>
-      ) : null }
+        </form>
+      </ReusableTicketModal>
     </div>
   )
 }

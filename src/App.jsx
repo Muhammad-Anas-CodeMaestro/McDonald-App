@@ -5,6 +5,7 @@ import './index.css';
 import MyTickets from "./pages/MyTickets";
 import Resolved from "./pages/Resolved";
 import Closed from "./pages/Closed";
+import Notification from "./pages/Notification";
 
 function ProtectedRoute({ children }) {
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
@@ -21,6 +22,7 @@ export default function App () {
         <Route path="/mytickets/inprogress" element={<ProtectedRoute><MyTickets /></ProtectedRoute>} />
         <Route path="/mytickets/resolved" element={<ProtectedRoute><Resolved /></ProtectedRoute>} />
         <Route path="/mytickets/closed" element={<ProtectedRoute><Closed /></ProtectedRoute>} />
+        <Route path="/notifications" element={<ProtectedRoute><Notification /></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
   );
