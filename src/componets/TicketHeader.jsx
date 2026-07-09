@@ -14,7 +14,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import TicketFormFields from '../foam/TicketFormFields.jsx';
 import ReusableTicketModal from './ReusableTicketModal.jsx';
 
-export default function TicketHeader ()
+export default function TicketHeader ({ showTabs = true })
 {
   const navigate = useNavigate()
   const location = useLocation();
@@ -203,24 +203,31 @@ export default function TicketHeader ()
   return (
     <div className={ `w-full` }>
       <div className="flex justify-between w-full items-center border-b pb-2 border-slate-200">
-        <div className="flex justify-center gap-3">
-          { items.map((item) =>
-          {
-            const isActive = routeCheck === item.route;
-            const itemClass = `flex items-center cursor-pointer rounded-lg px-3 py-2 ${ isActive ? 'border-b-2 border-yellow-500 text-yellow-500' : 'text-gray-700 hover:bg-slate-100' }`;
-            return (
-              <div className={ itemClass } key={ item.key } onClick={ () => navigate(item.route) }>
-                <img
-                  src={ item.img }
-                  alt={ item.alt }
-                  style={ isActive ? { filter: 'brightness(0) saturate(100%) invert(77%) sepia(88%) saturate(1000%) hue-rotate(355deg) brightness(102%)' } : undefined }
-                />
-                <h4 className={ `font-light pl-2` }>{ item.text }</h4>
-              </div>
-            )
-          }) }
-        </div>
-        <div className="flex items-center gap-4">
+        { showTabs ? (
+          <div className="flex justify-center gap-3">
+            { items.map((item) =>
+            {
+              const isActive = routeCheck === item.route;
+              const itemClass = `flex items-center cursor-pointer rounded-lg px-3 py-2 ${ isActive ? 'border-b-2 border-yellow-500 text-yellow-500 rounded-b-sm' : 'text-gray-700 hover:bg-slate-100' }`;
+              return (
+                <div className={ itemClass } key={ item.key } onClick={ () => navigate(item.route) }>
+                  <img
+                    src={ item.img }
+                    alt={ item.alt }
+                    style={ isActive ? { filter: 'brightness(0) saturate(100%) invert(77%) sepia(88%) saturate(1000%) hue-rotate(355deg) brightness(102%)' } : undefined }
+                  />
+                  <h4 className={ `font-light pl-2` }>{ item.text }</h4>
+                </div>
+              )
+            }) }
+          </div>
+        ) : (
+          <div className="flex items-center gap-2">
+
+          </div>
+        ) }
+        <div className="flex items-center gap-3">
+
           <img src={ slider } alt="sliderForFilter" onClick={ () => setIsFilterOpen((prev) => !prev) } className="cursor-pointer" />
           <button
             type="button"
@@ -249,15 +256,6 @@ export default function TicketHeader ()
             <img src={ search } alt="searchicon" />
             Filter Tickets
           </button>
-        </div>
-      </div>
-      <div className="flex justify-between items-center mt-2">
-        <div>
-          <h3 className="text-sm font-light pl-10">entries per page</h3>
-        </div>
-        <div className="flex items-center gap-2 min-w-0">
-          <img src={ SCV_icon } alt="scv_icon" className="h-7" />
-          <input type="search" placeholder="Search" className="bg-gray-200 border border-gray-300 rounded-sm p-2 min-w-0" />
         </div>
       </div>
       <ReusableTicketModal

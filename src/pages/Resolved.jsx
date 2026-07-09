@@ -1,11 +1,11 @@
 import { useState } from "react";
 import Header from "../componets/Header";
 import Slider from "../componets/SideBar";
-import Table from "../componets/Table";
 import TicketHeader from "../componets/TicketHeader";
 import ReusableTicketModal from "../componets/ReusableTicketModal";
 import TicketDetailsView from "../componets/TicketDetailsView";
 import { tableHeaders, tableData } from "../data/resolvedTableValue";
+import MainTable from "../componets/MainTable";
 
 export default function Resolved() {
   const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
@@ -32,7 +32,7 @@ export default function Resolved() {
           <h2 className="font-semibold text-2xl">My Tickets</h2>
           <div className="bg-white p-3 shadow-lg h-fit w-full">
             <TicketHeader />
-            <Table headers={tableHeaders} data={tableData} onAction={handleViewTicket} />
+            <MainTable headers={tableHeaders} data={tableData} onAction={handleViewTicket} />
             <ReusableTicketModal
               open={isTicketModalOpen}
               onCancel={closeTicketModal}

@@ -79,6 +79,55 @@ const baseTickets = [
   }
 ];
 
+export const notificationtTableHeaders = [
+  'Ticket Number',
+  'Notification Date & Time',
+  'Description'
+];
+
+const baseNotifications = [
+  {
+    ticketNumber: '2025/MC/65457',
+    createdAt: '26/02/2025 12:00pm',
+    description: 'New support ticket submitted by John Doe'
+  },
+  {
+    ticketNumber: '2025/MC/65457',
+    createdAt: '26/02/2025 12:00pm',
+    description: 'Ticket #2025/CS135 assigned to you by Supervisor'
+  },
+  {
+    ticketNumber: '2025/MC/65457',
+    createdAt: '26/02/2025 12:00pm',
+    description: 'Ticket #2025/MC/65448 escalated at 26/02/2025 02:01pm'
+  },
+  {
+    ticketNumber: '2025/MC/65457',
+    createdAt: '26/02/2025 12:00pm',
+    description: 'User submitted re-open request for ticket #2025/MC/65494'
+  },
+  {
+    ticketNumber: '2025/MC/65457',
+    createdAt: '26/02/2025 12:00pm',
+    description: 'Vendor replied on ticket #2025/CS123'
+  },
+  {
+    ticketNumber: '2025/MC/65457',
+    createdAt: '26/02/2025 12:00pm',
+    description: 'New support ticket submitted by John Doe'
+  },
+  {
+    ticketNumber: '2025/MC/65457',
+    createdAt: '26/02/2025 12:00pm',
+    description: 'Ticket #2025/MC/65448 escalated at 26/02/2025 02:01pm'
+  },
+  {
+    ticketNumber: '2025/MC/65457',
+    createdAt: '26/02/2025 12:00pm',
+    description: 'Vendor replied on ticket #2025/MC/65448'
+  }
+];
+
 function toArrayRows(rows) {
   return rows.map((r) => [
     r.ticketNumber,
@@ -93,8 +142,20 @@ function toArrayRows(rows) {
   ]);
 }
 
+function toNotificationArrayRows(rows) {
+  return rows.map((r) => [
+    r.ticketNumber,
+    r.createdAt,
+    r.description,
+  ]);
+}
+
 export function getAllTableData() {
   return toArrayRows(baseTickets);
+}
+
+export function getAllnotificationValue() {
+  return toNotificationArrayRows(baseNotifications);
 }
 
 export function getTableDataFilteredByStatus(statuses) {
@@ -113,6 +174,7 @@ export default {
   tableHeaders,
   getAllTableData,
   getTableDataFilteredByStatus,
-  getTableDataTransformed
+  getTableDataTransformed,
+  notificationtTableHeaders,
+  getAllnotificationValue
 };
-

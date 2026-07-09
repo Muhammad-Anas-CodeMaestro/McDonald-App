@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Header from "../componets/Header";
 import Slider from "../componets/SideBar";
-import Table from "../componets/Table";
+import Table from "../componets/MainTable";
 import TicketHeader from "../componets/TicketHeader";
 import ReusableTicketModal from "../componets/ReusableTicketModal";
 import TicketDetailsView from "../componets/TicketDetailsView";
