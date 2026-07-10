@@ -32,7 +32,7 @@ export default function SideBar () {
             return (
               <div key={item.key} className={itemClass} onClick={() => navigate(item.route)}>
                 <img src={item.img} alt={item.alt} className='h-5 w-5'/>
-                <h2 className='flex-1'>{item.text}</h2>
+                <span> {item.text} </span>
               </div>
             );
           })}

@@ -216,7 +216,7 @@ export default function TicketHeader ({ showTabs = true })
                     alt={ item.alt }
                     style={ isActive ? { filter: 'brightness(0) saturate(100%) invert(77%) sepia(88%) saturate(1000%) hue-rotate(355deg) brightness(102%)' } : undefined }
                   />
-                  <h4 className={ `font-light pl-2` }>{ item.text }</h4>
+                  <span className="font-light pl-2" >{item.text}</span>
                 </div>
               )
             }) }

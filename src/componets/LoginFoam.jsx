@@ -4,12 +4,14 @@ import McDnaldLogo from '/McDonaldM.png';
 import McDonaldFoamPic from '/McDonaldWRB.jpg';
 import { userValue } from "../data/userValue.js";
 import FormField from '../foam/FormField.jsx';
+import { useAuth } from "../context/AuthContext.jsx";
 
 export default function Foam () {
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const loginFields = [
     {
@@ -43,18 +45,13 @@ export default function Foam () {
     e.preventDefault();
     setLoading(true);
 
-    const matchedUser = userValue.find(
-      (user) => user.email === emailInput.trim() && user.password === passwordInput
-    );
+    const result = login(emailInput, passwordInput);
 
-    if (matchedUser) {
+    if (result.ok) {
       localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('email', JSON.stringify(emailInput.trim()));
-      localStorage.setItem('password', JSON.stringify(passwordInput));
       navigate('/Dashboard');
     } else {
-      localStorage.removeItem('isLoggedIn');
-      alert('Invalid email or password');
+      alert(result.error || 'Invalid email or password');
     }
 
     setLoading(false);
