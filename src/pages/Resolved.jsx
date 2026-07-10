@@ -38,7 +38,7 @@ export default function Resolved() {
               onCancel={closeTicketModal}
               title="Resolved Ticket"
               mode="view"
-              showFooter={false}
+              cancelLabel="Close"
               width={900}
             >
               <TicketDetailsView ticket={selectedTicket} />

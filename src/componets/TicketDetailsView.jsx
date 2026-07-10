@@ -115,9 +115,6 @@ export default function TicketDetailsView ({ ticket })
           <p>Status: { details.status || '-' }</p>
         </div>
       </details>
-      <ReusableTicketModal cancelLabel="Cancel">
-
-      </ReusableTicketModal>
     </form>
   );
 }

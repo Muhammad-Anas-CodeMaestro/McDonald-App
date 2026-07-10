@@ -38,7 +38,7 @@ export default function Closed() {
               onCancel={closeTicketModal}
               title="Closed Ticket"
               mode="view"
-              showFooter={false}
+              cancelLabel="Close"
               width={900}
             >
               <TicketDetailsView ticket={selectedTicket} />

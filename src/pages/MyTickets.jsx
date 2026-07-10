@@ -38,7 +38,7 @@ export default function MyTickets() {
               onCancel={closeTicketModal}
               title="View Ticket"
               mode="view"
-              showFooter={false}
+              cancelLabel="Close"
               width={900}
             >
               <TicketDetailsView ticket={selectedTicket} />
