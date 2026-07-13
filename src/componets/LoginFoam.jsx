@@ -6,7 +6,8 @@ import { userValue } from "../data/userValue.js";
 import FormField from '../foam/FormField.jsx';
 import { useAuth } from "../context/AuthContext.jsx";
 
-export default function Foam () {
+export default function Foam ()
+{
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -32,7 +33,8 @@ export default function Foam () {
     },
   ];
 
-  const handleFieldChange = (fieldName) => (e) => {
+  const handleFieldChange = (fieldName) => (e) =>
+  {
     if (fieldName === 'email') {
       setEmailInput(e.target.value);
     } else if (fieldName === 'password') {
@@ -49,7 +51,11 @@ export default function Foam () {
 
     if (result.ok) {
       localStorage.setItem('isLoggedIn', 'true');
-      navigate('/Dashboard');
+      if (emailInput === "user@mcdonalds.com") {
+        navigate('/Dashboard');
+      }else{
+        navigate('/usertypeselection')
+      }
     } else {
       alert(result.error || 'Invalid email or password');
     }
@@ -63,16 +69,16 @@ export default function Foam () {
         <img src={ McDonaldFoamPic } alt="McDonald's" className="h-16" />
         <h1 className="font-medium text-xl">Helpdesk Login</h1>
         <form className="flex flex-col gap-4" onSubmit={ handleSubmit }>
-          {loginFields.map((field) => (
+          { loginFields.map((field) => (
             <FormField
-              key={field.name}
-              field={field}
-              value={field.name === 'email' ? emailInput : passwordInput}
-              onChange={handleFieldChange(field.name)}
+              key={ field.name }
+              field={ field }
+              value={ field.name === 'email' ? emailInput : passwordInput }
+              onChange={ handleFieldChange(field.name) }
             />
-          ))}
+          )) }
           <button type="submit" className='bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-32 rounded'>
-            {loading ? 'Logging in...' : 'Login'}
+            { loading ? 'Logging in...' : 'Login' }
           </button>
         </form>
       </div>

@@ -79,6 +79,41 @@ const baseTickets = [
   }
 ];
 
+
+function toArrayRows (rows)
+{
+  return rows.map((r) => [
+    r.ticketNumber,
+    r.title,
+    r.mainCategory,
+    r.secondCategory,
+    r.thirdCategory,
+    r.description,
+    r.createdAt,
+    r.status,
+    r.action
+  ]);
+}
+
+export function getAllTableData ()
+{
+  return toArrayRows(baseTickets);
+}
+
+export function getTableDataFilteredByStatus (statuses)
+{
+  if (!statuses) return getAllTableData();
+  const set = new Set(Array.isArray(statuses) ? statuses : [statuses]);
+  return toArrayRows(baseTickets.filter((t) => set.has(t.status)));
+}
+
+export function getTableDataTransformed (status, action)
+{
+  return toArrayRows(
+    baseTickets.map((t) => ({ ...t, status: status ?? t.status, action: action ?? t.action }))
+  );
+}
+
 export const notificationtTableHeaders = [
   'Ticket Number',
   'Notification Date & Time',
@@ -128,46 +163,169 @@ const baseNotifications = [
   }
 ];
 
-function toArrayRows(rows) {
+function toNotificationArrayRows (rows)
+{
+  return rows.map((r) => [
+    r.ticketNumber,
+    r.createdAt,
+    r.description,
+  ]);
+}
+
+export function getAllnotificationValue ()
+{
+  return toNotificationArrayRows(baseNotifications);
+}
+
+export const ticketVendorTableHeaders = [
+  'Ticket Number',
+  'Ticket Title',
+  'Main Category',
+  '2nd Category',
+  '3rd Category',
+  'Store Location',
+  'Department',
+  'Ticket Create At',
+  'TAT hr(s)',
+  'Escalated At',
+  'Status',
+  'Action'
+];
+
+const baseTicketsVendor = [
+  {
+    ticketNumber: '2025/MC/65457',
+    title: 'ERP Issue',
+    mainCategory: 'IT',
+    secondCategory: 'Software',
+    thirdCategory: 'ERP',
+    storeLocation: 'Nipa Branch',
+    department: 'Finance',
+    createdAt: '26/02/2025 12:00pm',
+    tatHours: 1,
+    escalatedAt: '26/02/2025 02:01pm',
+    status: 'In Progress',
+    action: 'view'
+  },
+  {
+    ticketNumber: '2025/MC/65457',
+    title: 'Mouse Issue',
+    mainCategory: 'IT',
+    secondCategory: 'Hardware',
+    thirdCategory: 'Mouse',
+    storeLocation: 'PIDC Branch',
+    department: 'Admin',
+    createdAt: '26/02/2025 12:00pm',
+    tatHours: 1,
+    escalatedAt: '26/02/2025 02:01pm',
+    status: 'In Progress',
+    action: 'view'
+  },
+  {
+    ticketNumber: '2025/MC/65457',
+    title: 'Office Supplies',
+    mainCategory: 'Admin',
+    secondCategory: 'General Services',
+    thirdCategory: 'Cleaning',
+    storeLocation: 'Main Branch',
+    department: 'Admin',
+    createdAt: '26/02/2025 12:00pm',
+    tatHours: 3,
+    escalatedAt: '',
+    status: 'In Progress',
+    action: 'view'
+  },
+  {
+    ticketNumber: '2025/MC/65457',
+    title: 'Running Slowly',
+    mainCategory: 'IT',
+    secondCategory: 'Software',
+    thirdCategory: 'OS',
+    storeLocation: 'PECHS Branch',
+    department: 'Admin',
+    createdAt: '26/02/2025 12:00pm',
+    tatHours: 3,
+    escalatedAt: '',
+    status: 'In Progress',
+    action: 'view'
+  },
+  {
+    ticketNumber: '2025/MC/65457',
+    title: 'Need Transport',
+    mainCategory: 'Admin',
+    secondCategory: 'Transport',
+    thirdCategory: 'Vehicle',
+    storeLocation: 'Main Branch',
+    department: 'Admin',
+    createdAt: '26/02/2025 12:00pm',
+    tatHours: 3,
+    escalatedAt: '',
+    status: 'In Progress',
+    action: 'view'
+  },
+  {
+    ticketNumber: '2025/MC/65457',
+    title: 'Mouse Problem',
+    mainCategory: 'IT',
+    secondCategory: 'Hardware',
+    thirdCategory: 'Printer',
+    storeLocation: 'PIDC Branch',
+    department: 'Finance',
+    createdAt: '26/02/2025 12:00pm',
+    tatHours: 5,
+    escalatedAt: '',
+    status: 'In Progress',
+    action: 'view'
+  },
+  {
+    ticketNumber: '2025/MC/65457',
+    title: 'Network Issue',
+    mainCategory: 'IT',
+    secondCategory: 'Network & Email',
+    thirdCategory: 'Internet',
+    storeLocation: 'Main Branch',
+    department: 'HR',
+    createdAt: '26/02/2025 12:00pm',
+    tatHours: 5,
+    escalatedAt: '',
+    status: 'In Progress',
+    action: 'view'
+  },
+  {
+    ticketNumber: '2025/MC/65457',
+    title: 'Floor Cleaning',
+    mainCategory: 'Admin',
+    secondCategory: 'General Services',
+    thirdCategory: 'Cleaning',
+    storeLocation: 'Main Branch',
+    department: 'Admin',
+    createdAt: '26/02/2025 12:00pm',
+    tatHours: 5,
+    escalatedAt: '',
+    status: 'In Progress',
+    action: 'view'
+  }
+];
+
+function toVendorArayRows (rows) {
   return rows.map((r) => [
     r.ticketNumber,
     r.title,
     r.mainCategory,
     r.secondCategory,
     r.thirdCategory,
-    r.description,
+    r.storeLocation,
+    r.department,
     r.createdAt,
+    r.tatHours,
+    r.escalatedAt,
     r.status,
-    r.action
-  ]);
+    r.action,
+  ])
 }
 
-function toNotificationArrayRows(rows) {
-  return rows.map((r) => [
-    r.ticketNumber,
-    r.createdAt,
-    r.description,
-  ]);
-}
-
-export function getAllTableData() {
-  return toArrayRows(baseTickets);
-}
-
-export function getAllnotificationValue() {
-  return toNotificationArrayRows(baseNotifications);
-}
-
-export function getTableDataFilteredByStatus(statuses) {
-  if (!statuses) return getAllTableData();
-  const set = new Set(Array.isArray(statuses) ? statuses : [statuses]);
-  return toArrayRows(baseTickets.filter((t) => set.has(t.status)));
-}
-
-export function getTableDataTransformed(status, action) {
-  return toArrayRows(
-    baseTickets.map((t) => ({ ...t, status: status ?? t.status, action: action ?? t.action }))
-  );
+export function getAllTicketsVendor () {
+  return toVendorArayRows(baseTicketsVendor)
 }
 
 export default {
@@ -176,5 +334,6 @@ export default {
   getTableDataFilteredByStatus,
   getTableDataTransformed,
   notificationtTableHeaders,
-  getAllnotificationValue
+  getAllnotificationValue,
+  getAllTicketsVendor
 };

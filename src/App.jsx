@@ -7,6 +7,9 @@ import Resolved from "./pages/Resolved";
 import Closed from "./pages/Closed";
 import Notification from "./pages/Notification";
 import AuthProvider, { useAuth } from "./context/AuthContext";
+import UserTypeSelection from "./pages/UserTypeSelection";
+import TicketsNew from "./pages/TicketsNew";
+import TicketVendor from "./pages/TicketVendor";
 
 function ProtectedRoute ({ children })
 {
@@ -22,11 +25,14 @@ export default function App ()
         <Routes>
           <Route path="/login" element={ <Login /> } />
           <Route path="/" element={ <Navigate to="/login" replace /> } />
+          <Route path="/usertypeselection" element={ <ProtectedRoute><UserTypeSelection /></ProtectedRoute> } />
           <Route path="/dashboard" element={ <ProtectedRoute><Dashboard /></ProtectedRoute> } />
-          <Route path="/mytickets/inprogress" element={ <ProtectedRoute><MyTickets /></ProtectedRoute> } />
+          <Route path="/mytickets/inprogress" element={ <ProtectedRoute><MyTickets /></ProtectedRoute> }/>
           <Route path="/mytickets/resolved" element={ <ProtectedRoute><Resolved /></ProtectedRoute> } />
           <Route path="/mytickets/closed" element={ <ProtectedRoute><Closed /></ProtectedRoute> } />
           <Route path="/notifications" element={ <ProtectedRoute><Notification /></ProtectedRoute> } />
+          <Route path="/tickets/new" element={ <ProtectedRoute><TicketsNew /></ProtectedRoute> }/>
+          <Route path="/ticketvendor" element={ <ProtectedRoute><TicketVendor /></ProtectedRoute> }/>
         </Routes>
       </BrowserRouter>
     </AuthProvider>
