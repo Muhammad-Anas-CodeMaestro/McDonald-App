@@ -6,13 +6,16 @@ import deleteicon from "/delete.png"
 import slider from '/slider.png'
 import search from "/search.png"
 import sms_tracking from "/sms_tracking.png"
-import sms_star from "/sms_star.png";
-import sms_minus from "/sms_minus.png"
+import resolved from "/sms_resolved.png";
+import closed from "/sms_closed.png"
 import SCV_icon from "/SCV_icon.png"
 import create_ticket from "/create_ticket.png"
 import { useLocation, useNavigate } from 'react-router-dom';
 import TicketFormFields from '../foam/TicketFormFields.jsx';
 import ReusableTicketModal from './ReusableTicketModal.jsx';
+import newIcon from '/sms.png'
+import sms_notification from '/sms_notification.png'
+import { useAuth } from "../context/AuthContext.jsx";
 
 export default function TicketHeader ({ showTabs = true })
 {
@@ -32,6 +35,8 @@ export default function TicketHeader ({ showTabs = true })
     title: '',
     description: '',
   });
+  const { user } = useAuth();
+  const userRoleId = user?.roleId
 
   const [filterState, setFilterState] = useState({
     ticketStatus: 'ticketStatus',
@@ -151,26 +156,61 @@ export default function TicketHeader ({ showTabs = true })
 
   const items = [
     {
+      key: 'new',
+      img: newIcon,
+      alt: 'sms',
+      text: 'New',
+      route: '/tickets/new',
+      roles: [2]
+    },
+    {
+      key: 'assignedToMe',
+      img: sms_notification,
+      alt: 'sms_notification',
+      text: 'Assigned To Me',
+      route: '/tickets/assignedtome',
+      roles: [2]
+    },
+    {
       key: 'in-progress',
       img: sms_tracking,
       alt: 'sms_tracking',
       text: 'In-Progress',
-      route: '/mytickets/inprogress'
+      route: '/mytickets/inprogress',
+      roles: [3]
     },
     {
       key: 'resolved',
-      img: sms_star,
-      alt: 'sms_star',
+      img: resolved,
+      alt: 'resolved',
       text: 'Resolved',
-      route: '/mytickets/resolved'
+      route: '/mytickets/resolved',
+      roles: [3]
     },
     {
       key: 'closed',
-      img: sms_minus,
-      alt: 'sms_minus',
+      img: closed,
+      alt: 'closed',
       text: 'Closed',
-      route: '/mytickets/closed'
-    }
+      route: '/mytickets/closed',
+      roles: [3]
+    },
+    {
+      key: 'resolved',
+      img: resolved,
+      alt: 'resolved',
+      text: 'Resolved',
+      route: '/tickets/resolved',
+      roles: [2]
+    },
+    {
+      key: 'closed',
+      img: closed,
+      alt: 'closed',
+      text: 'Closed',
+      route: '/tickets/closed',
+      roles: [2]
+    },    
   ];
 
   const handleFieldChange = (name) => (e) =>
@@ -200,12 +240,16 @@ export default function TicketHeader ({ showTabs = true })
     setIsFormOpen(false);
   };
 
+  const filteredItems = items.filter(
+    item => item.roles.includes(userRoleId)
+  )
+
   return (
     <div className={ `w-full` }>
       <div className="flex justify-between w-full items-center border-b pb-2 border-slate-200">
         { showTabs ? (
           <div className="flex justify-center gap-3">
-            { items.map((item) =>
+            { filteredItems.map((item) =>
             {
               const isActive = routeCheck === item.route;
               const itemClass = `flex items-center cursor-pointer rounded-lg px-3 py-2 ${ isActive ? 'border-b-2 border-yellow-500 text-yellow-500 rounded-b-sm' : 'text-gray-700 hover:bg-slate-100' }`;

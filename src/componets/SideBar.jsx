@@ -5,7 +5,7 @@ import ticketstar from "/ticketstar.png"
 import notification from "/notification.png"
 import ticket_vendor from "/ticket_vendor.png"
 import reports from "/reports.png"
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Routes } from 'react-router-dom';
 import { useAuth } from "../context/AuthContext"
 
 export default function SideBar ()
@@ -14,20 +14,21 @@ export default function SideBar ()
   const location = useLocation();
   const currentPath = location.pathname.toLowerCase();
   const { user } = useAuth();
-  const userRole = user?.role;
-
+  const userRoleId = user?.roleId;
 
   const items = [
-    { key: 'dashboard', img: dashboard, alt: "dashboaricon", text: 'Dashboard', route: '/dashboard', roles: ["User", "Support Agent"] },
-    { key: 'mytickets', img: ticketstar, alt: "ticketstaticon", text: 'My Tickets', route: '/mytickets/inprogress', roles: ["User"] },
-    { key: 'ticket', img: ticketstar, alt: "ticketicon", text: 'Tickets', route: '/tickets/new', roles: ["Support Agent"] },
-    { key: 'ticketsvendor', img: ticket_vendor, alt: "ticketvendoricon", text: 'Tickets At Vendor', route: '/ticketvendor/', roles: ["Support Agent"] },
-    { key: 'notifications', img: notification, alt: "notificationicon", text: 'Notifications', route: '/notifications', roles: ["User", "Support Agent"] },
-    { key: 'reports', img: reports, alt: "reporticon", text: 'Reports', route: '/reports', roles: ["Support Agent"] },
+    {
+      key: 'dashboard', img: dashboard, alt: "dashboaricon", text: 'Dashboard', route: '/dashboard', matchRoutes: [ "/dashboard"], roles: [3, 2]
+    },
+    { key: 'mytickets', img: ticketstar, alt: "ticketstaticon", text: 'My Tickets', route: '/mytickets/inprogress', matchRoutes: [ "/mytickets"], roles: [3] },
+    { key: 'ticket', img: ticketstar, alt: "ticketicon", text: 'Tickets', route: '/tickets/new', matchRoutes: ["/tickets"], roles: [2] },
+    { key: 'ticketsvendor', img: ticket_vendor, alt: "ticketvendoricon", text: 'Tickets At Vendor', route: '/ticketvendor/', matchRoutes: [ "/ticketvendor"], roles: [2] },
+    { key: 'notifications', img: notification, alt: "notificationicon", text: 'Notifications', route: '/notifications', matchRoutes: [ "/notifications"], roles: [3, 2] },
+    { key: 'reports', img: reports, alt: "reporticon", text: 'Reports', route: '/reports', matchRoutes: [ "/reports"], roles: [2] },
   ];
 
   const filteredItems = items.filter(
-    item => item.roles.includes(userRole)
+    item => item.roles.includes(userRoleId)
   )
 
   return (
@@ -38,9 +39,9 @@ export default function SideBar ()
         <div className='flex flex-col py-3 font-light text-sm w-full gap-3'>
           { filteredItems.map((item) =>
           {
-            const isActive = item.key === 'mytickets'
-              ? currentPath === item.route || currentPath.startsWith('/mytickets')
-              : currentPath === item.route;
+            const isActive = (item.matchRoutes ?? [item.route]).some(
+              route => currentPath.startsWith(route)
+            )
             const itemClass = `flex items-center gap-2 pl-2 cursor-pointer w-full py-2 rounded-sm ${ isActive ? 'bg-yellow-400 text-black' : '' }`;
             return (
               <div key={ item.key } className={ itemClass } onClick={ () => navigate(item.route) }>
@@ -49,6 +50,7 @@ export default function SideBar ()
               </div>
             );
           }) }
+          { console.log(currentPath) }
         </div>
       </div>
     </div>

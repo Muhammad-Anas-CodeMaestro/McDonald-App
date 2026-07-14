@@ -35,6 +35,15 @@ export default function AuthProvider ({ children })
     return { ok: true }
   }
 
+  function changeRole(roleId){
+    const updatedUser = {
+      ...user,
+      roleId
+    };
+    setUser(updatedUser)
+    saveToStorage("session", updatedUser)
+  }
+
   function logout(){
     setUser(null)
     clearStorage("session")
@@ -43,7 +52,7 @@ export default function AuthProvider ({ children })
 
   const value = useMemo(
     () => ({
-      user, users, isAuthenticated: !!user, login, logout
+      user, users, isAuthenticated: !!user, login, logout, changeRole
     }), [user, users]
   )
   

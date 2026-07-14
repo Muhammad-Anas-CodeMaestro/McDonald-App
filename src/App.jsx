@@ -10,6 +10,7 @@ import AuthProvider, { useAuth } from "./context/AuthContext";
 import UserTypeSelection from "./pages/UserTypeSelection";
 import TicketsNew from "./pages/TicketsNew";
 import TicketVendor from "./pages/TicketVendor";
+import TicketAssigned from "./pages/TicketAssigned";
 
 function ProtectedRoute ({ children })
 {
@@ -32,7 +33,10 @@ export default function App ()
           <Route path="/mytickets/closed" element={ <ProtectedRoute><Closed /></ProtectedRoute> } />
           <Route path="/notifications" element={ <ProtectedRoute><Notification /></ProtectedRoute> } />
           <Route path="/tickets/new" element={ <ProtectedRoute><TicketsNew /></ProtectedRoute> }/>
+          <Route path="/tickets/assignedtome" element={ <ProtectedRoute><TicketAssigned /></ProtectedRoute> }/>
           <Route path="/ticketvendor" element={ <ProtectedRoute><TicketVendor /></ProtectedRoute> }/>
+          <Route path="/tickets/resolved" element={ <ProtectedRoute><Resolved /></ProtectedRoute> } />
+          <Route path="/tickets/closed" element={ <ProtectedRoute><Closed /></ProtectedRoute> } />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

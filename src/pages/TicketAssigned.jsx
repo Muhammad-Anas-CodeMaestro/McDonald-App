@@ -2,9 +2,9 @@ import Header from "../componets/Header";
 import MainTable from "../componets/MainTable";
 import SideBar from "../componets/SideBar";
 import TicketHeader from "../componets/TicketHeader";
-import { mainTicketTableHeader, newTicketData } from "../data/NewTicketData";
+import { mainTicketTableHeader, AssignedTicketData } from '../data/assignedTickets'
 
-export default function TicketsNew ()
+export default function TicketAssigned ()
 {
   return (
     <div className="flex h-screen">
@@ -17,7 +17,7 @@ export default function TicketsNew ()
           <h2 className="font-semibold text-2xl">My Tickets</h2>
           <div className="bg-white p-3 shadow-lg h-fit w-full">
             <TicketHeader />
-            <MainTable headers={mainTicketTableHeader} data={newTicketData}/>
+            <MainTable headers={mainTicketTableHeader} data={AssignedTicketData}/>
           </div>
         </div>
       </div>

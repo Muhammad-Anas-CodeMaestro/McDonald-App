@@ -1,24 +1,24 @@
 export const userValue = [
   {
-    id: 'u1',
     name: 'John Smith',
     email: 'admin@mcdonalds.com',
     password: 'admin123',
-    role: 'Admin'
+    role: 'Admin',
+    roleId: 1
   },
   {
-    id: 'u2',
     name: 'John Snow',
     email: 'sagent@mcdonalds.com',
     password: 'agent123',
-    role: 'Support Agent'
+    role: 'Support Agent',
+    roleId: 2
   },
   {
-    id: 'u3',
     name: 'John Smith',
     email: 'user@mcdonalds.com',
     password: 'user123',
-    role: 'User'
+    role: 'User',
+    roleId: 3
   }
 ]
 

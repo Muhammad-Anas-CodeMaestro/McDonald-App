@@ -1,9 +1,10 @@
 const statusClassMap = {
   New: 'bg-purple-200 text-purple-600',
   'In Progress': 'bg-blue-200 text-blue-600',
-  'On Hold': 'bg-yellow-200 text-yellow-600',
+  'On Hold': 'bg-orange-200 text-orange-600',
   Resolved: 'bg-green-200 text-green-600',
   Closed: 'bg-red-200 text-red-600',
+  'Re-Open': 'bg-yellow-200 text-yellow-600'
 };
 
 export default function StatusCheck ({ status }) {

@@ -328,6 +328,159 @@ export function getAllTicketsVendor () {
   return toVendorArayRows(baseTicketsVendor)
 }
 
+export const mainTicketTableHeader = [
+  'Ticket Number',
+  'Ticket Title',
+  'Main Category',
+  '2nd Category',
+  '3rd Category',
+  'Store Location',
+  'Department',
+  'Ticket Create At',
+  'TAT hr(s)',
+  'Escalated At',
+  'Status',
+  'Action'
+];
+
+const baseTicketAssigned = [
+  {
+    ticketNumber: '2025/MC/65457',
+    title: 'ERP Issue',
+    mainCategory: 'IT',
+    secondCategory: 'Software',
+    thirdCategory: 'ERP',
+    storeLocation: 'Nipa Branch',
+    department: 'Finance',
+    createdAt: '26/02/2025 12:00pm',
+    tatHours: 1,
+    escalatedAt: '26/02/2025 02:01pm',
+    status: 'In Progress',
+    action: 'forward'
+  },
+  {
+    ticketNumber: '2025/MC/65457',
+    title: 'Mouse Issue',
+    mainCategory: 'IT',
+    secondCategory: 'Hardware',
+    thirdCategory: 'Mouse',
+    storeLocation: 'PIDC Branch',
+    department: 'Admin',
+    createdAt: '26/02/2025 12:00pm',
+    tatHours: 1,
+    escalatedAt: '26/02/2025 02:01pm',
+    status: 'Re-Open',
+    action: 'forward'
+  },
+  {
+    ticketNumber: '2025/MC/65457',
+    title: 'Office Supplies',
+    mainCategory: 'Admin',
+    secondCategory: 'General Services',
+    thirdCategory: 'Cleaning',
+    storeLocation: 'Main Branch',
+    department: 'Admin',
+    createdAt: '26/02/2025 12:00pm',
+    tatHours: 3,
+    escalatedAt: '',
+    status: 'In Progress',
+    action: 'forward'
+  },
+  {
+    ticketNumber: '2025/MC/65457',
+    title: 'Running Slowly',
+    mainCategory: 'IT',
+    secondCategory: 'Software',
+    thirdCategory: 'OS',
+    storeLocation: 'PECHS Branch',
+    department: 'Admin',
+    createdAt: '26/02/2025 12:00pm',
+    tatHours: 3,
+    escalatedAt: '',
+    status: 'In Progress',
+    action: 'forward'
+  },
+  {
+    ticketNumber: '2025/MC/65457',
+    title: 'Need Transport',
+    mainCategory: 'Admin',
+    secondCategory: 'Transport',
+    thirdCategory: 'Vehicle',
+    storeLocation: 'Main Branch',
+    department: 'Admin',
+    createdAt: '26/02/2025 12:00pm',
+    tatHours: 3,
+    escalatedAt: '',
+    status: 'On Hold',
+    action: 'forward'
+  },
+  {
+    ticketNumber: '2025/MC/65457',
+    title: 'Mouse Problem',
+    mainCategory: 'IT',
+    secondCategory: 'Hardware',
+    thirdCategory: 'Printer',
+    storeLocation: 'PIDC Branch',
+    department: 'Finance',
+    createdAt: '26/02/2025 12:00pm',
+    tatHours: 5,
+    escalatedAt: '',
+    status: 'In Progress',
+    action: 'forward'
+  },
+  {
+    ticketNumber: '2025/MC/65457',
+    title: 'Network Issue',
+    mainCategory: 'IT',
+    secondCategory: 'Network & Email',
+    thirdCategory: 'Internet',
+    storeLocation: 'Main Branch',
+    department: 'HR',
+    createdAt: '26/02/2025 12:00pm',
+    tatHours: 5,
+    escalatedAt: '',
+    status: 'In Progress',
+    action: 'forward'
+  },
+  {
+    ticketNumber: '2025/MC/65457',
+    title: 'Floor Cleaning',
+    mainCategory: 'Admin',
+    secondCategory: 'General Services',
+    thirdCategory: 'Cleaning',
+    storeLocation: 'Main Branch',
+    department: 'Admin',
+    createdAt: '26/02/2025 12:00pm',
+    tatHours: 5,
+    escalatedAt: '',
+    status: 'In Progress',
+    action: 'forward'
+  }
+];
+
+function tonewTicketTableRows (rows) {
+  return rows.map((r) => [
+    r.ticketNumber,
+    r.title,
+    r.mainCategory,
+    r.secondCategory,
+    r.thirdCategory,
+    r.storeLocation,
+    r.department,
+    r.createdAt,
+    r.tatHours,
+    r.escalatedAt,
+    r.status,
+    r.action
+  ])
+}
+
+export function getAllNewTicketDataAssigned (status, action) {
+  return tonewTicketTableRows(
+    baseTicketAssigned.map((t) => ({ ...t, status: status ?? t.status, action: action ?? t.action }))
+  );
+}
+
 export default {
   tableHeaders,
   getAllTableData,
@@ -335,5 +488,6 @@ export default {
   getTableDataTransformed,
   notificationtTableHeaders,
   getAllnotificationValue,
-  getAllTicketsVendor
+  getAllTicketsVendor,
+  getAllNewTicketDataAssigned
 };
