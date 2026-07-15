@@ -28,7 +28,7 @@ export default function ReusableTicketModal ({
 
   const modalFooter = footer ?? (
     showFooter ? (
-      <div className="flex flex-col items-center justify-center gap-2 sm:flex-row sm:justify-center">
+      <div className="flex flex-col items-center justify-center gap-2 sm:flex-row sm:justify-center pb-4">
         { showCancelButton ? (
           <Button onClick={ onCancel } { ...cancelButtonProps }>
             { cancelLabel }

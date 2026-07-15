@@ -5,6 +5,7 @@ import ticketstar from "/ticketstar.png"
 import notification from "/notification.png"
 import ticket_vendor from "/ticket_vendor.png"
 import reports from "/reports.png"
+import emailticket from "/email_ticket.png"
 import { useNavigate, useLocation, Routes } from 'react-router-dom';
 import { useAuth } from "../context/AuthContext"
 
@@ -18,13 +19,16 @@ export default function SideBar ()
 
   const items = [
     {
-      key: 'dashboard', img: dashboard, alt: "dashboaricon", text: 'Dashboard', route: '/dashboard', matchRoutes: [ "/dashboard"], roles: [3, 2]
+      key: 'dashboard', img: dashboard, alt: "dashboaricon", text: 'Dashboard', route: '/dashboard', matchRoutes: [ "/dashboard"], roles: [4, 3, 2]
     },
-    { key: 'mytickets', img: ticketstar, alt: "ticketstaticon", text: 'My Tickets', route: '/mytickets/inprogress', matchRoutes: [ "/mytickets"], roles: [3] },
-    { key: 'ticket', img: ticketstar, alt: "ticketicon", text: 'Tickets', route: '/tickets/new', matchRoutes: ["/tickets"], roles: [2] },
-    { key: 'ticketsvendor', img: ticket_vendor, alt: "ticketvendoricon", text: 'Tickets At Vendor', route: '/ticketvendor/', matchRoutes: [ "/ticketvendor"], roles: [2] },
-    { key: 'notifications', img: notification, alt: "notificationicon", text: 'Notifications', route: '/notifications', matchRoutes: [ "/notifications"], roles: [3, 2] },
-    { key: 'reports', img: reports, alt: "reporticon", text: 'Reports', route: '/reports', matchRoutes: [ "/reports"], roles: [2] },
+    { key: 'mytickets', img: ticketstar, alt: "ticketstaticon", text: 'My Tickets', route: '/mytickets/inprogress', matchRoutes: [ "/mytickets"], roles: [4] },
+    { key: 'ticket', img: ticketstar, alt: "ticketicon", text: 'Tickets', route: '/tickets/new', matchRoutes: ["/tickets"], roles: [3] },
+    { key: 'ticket', img: ticketstar, alt: "ticketicon", text: 'Tickets', route: '/tickets/alltickets', matchRoutes: ["/tickets"], roles: [2] },
+    { key: 'reopenrequest', img: ticketstar, alt: "ticketicon", text: 'Re-Open Request', route: '/reopenrequest', matchRoutes: ["/reopenrequest"], roles: [2] },
+    { key: 'ticketsvendor', img: ticket_vendor, alt: "ticketvendoricon", text: 'Tickets At Vendor', route: '/ticketvendor/', matchRoutes: [ "/ticketvendor"], roles: [3, 2] },
+    { key: 'emailtickets', img: emailticket, alt: "emailticketicon", text: 'Email Tickets', route: '/emailtickets', matchRoutes: ["/emailtickets"], roles: [2] },
+    { key: 'notifications', img: notification, alt: "notificationicon", text: 'Notifications', route: '/notifications', matchRoutes: [ "/notifications"], roles: [4, 3, 2] },
+    { key: 'reports', img: reports, alt: "reporticon", text: 'Reports', route: '/reports', matchRoutes: [ "/reports"], roles: [3, 2] },
   ];
 
   const filteredItems = items.filter(
@@ -49,8 +53,7 @@ export default function SideBar ()
                 <span> { item.text } </span>
               </div>
             );
-          }) }
-          { console.log(currentPath) }
+          })}
         </div>
       </div>
     </div>

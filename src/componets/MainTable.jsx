@@ -109,6 +109,7 @@ export default function MainTable ({ headers = [], data = [], onAction = null })
           <div className='flex gap-3'>
             <img src={ SCV_icon } alt="scv_icon" className="h-7" />
             <Input
+              id='1'
               placeholder="Search..."
               prefix={ <SearchOutlined /> }
               value={ search }

@@ -1,5 +1,5 @@
-import { mainTicketTableHeader, getAllNewTicketDataAssigned } from './tableValues'
+import { mainTicketTableHeader, getAllAssignedTicket } from './tableValues'
 
 export { mainTicketTableHeader }
 
-export const AssignedTicketData = getAllNewTicketDataAssigned()
+export const AssignedTicketData = getAllAssignedTicket()

@@ -10,6 +10,7 @@ export default function UserTypeSelection ()
 {
   const navigate = useNavigate();
   const { changeRole } = useAuth();
+  const { user } = useAuth();
   const handleFlow = (role) => {
     changeRole(role)
     navigate('/dashboard')
@@ -25,7 +26,7 @@ export default function UserTypeSelection ()
               <img src={ user_dp } alt="user_dp" className="w-15 h-15" />
               <span>User Flow</span>
             </div>
-            <div className="bg-white rounded-sm text-red-500 py-4 px-18 flex flex-col gap-2 items-center cursor-pointer" onClick={ () => handleFlow(2) }>
+            <div className="bg-white rounded-sm text-red-500 py-4 px-18 flex flex-col gap-2 items-center cursor-pointer" onClick={ () => handleFlow(user.roleId) }>
               <img src={ face_agent } alt="agent_Dp" className="w-15 h-15" />
               <span>Agent Flow</span>
             </div>

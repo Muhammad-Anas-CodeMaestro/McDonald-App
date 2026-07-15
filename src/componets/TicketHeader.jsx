@@ -74,7 +74,7 @@ export default function TicketHeader ({ showTabs = true })
     setFilterState((prev) => ({ ...prev, [name]: e.target.value }));
   };
 
-  const ticketFields = [
+  const userFields = [
     {
       name: 'userName',
       label: 'User Name',
@@ -154,13 +154,127 @@ export default function TicketHeader ({ showTabs = true })
     },
   ];
 
+  const supportFields = [
+    {
+      name: 'department',
+      label: 'Department',
+      type: 'select',
+      type: 'select',
+      options: [
+        { value: 'Finance', label: 'Finance' },
+        { value: 'SD', label: 'SD' },
+        { value: 'Marketing', label: 'Marketing' },
+        { value: 'Networking', label: 'Networking' },
+      ],
+      gridClassName: 'md:col-span-1',
+    },
+    {
+      name: 'city',
+      label: 'City',
+      type: 'select',
+      type: 'select',
+      options: [
+        { value: 'Lahore', label: 'Lahore' },
+        { value: 'Karachi', label: 'Karachi' },
+        { value: 'Islamabad', label: 'Islamabad' },
+      ],
+      gridClassName: 'md:col-span-1',
+    },
+    {
+      name: 'storeLocation',
+      label: 'Store Location',
+      type: 'select',
+      type: 'select',
+      options: [
+        { value: 'Barkat Market', label: 'Barkat Makre' },
+      ],
+      gridClassName: 'md:col-span-1',
+    },
+    {
+      name: 'complainant',
+      label: 'Complainant',
+      placeholder: 'Saif Khan',
+      type: 'text',
+      gridClassName: 'md:col-span-1',
+    },
+    {
+      name: 'mainCategory',
+      label: 'Ticket Main Category',
+      type: 'select',
+      type: 'select',
+      options: [
+        { value: 'IT', label: 'IT' },
+      ],
+      gridClassName: 'md:col-span-1',
+    },
+    {
+      name: 'secondCategory',
+      label: 'Ticket 2nd Category',
+      type: 'select',
+      options: [
+        { value: 'Hardware', label: 'Hardware' },
+      ],
+      gridClassName: 'md:col-span-1',
+    },
+    {
+      name: 'thirdCategory',
+      label: 'Ticket 3rd Category',
+      type: 'select',
+      options: [
+        { value: 'Mouse', label: 'Mouse' },
+      ],
+      gridClassName: 'md:col-span-1',
+    },
+    {
+      name: 'title',
+      label: 'Ticket Title',
+      type: 'text',
+      placeholder: 'Ticket title comes here...',
+      required: true,
+      gridClassName: 'md:col-span-1',
+    },
+    {
+      name: 'description',
+      label: 'Ticket Description',
+      type: 'textarea',
+      placeholder: 'Describe issue...',
+      rows: 4,
+      required: true,
+      gridClassName: 'md:col-span-4',
+    },
+  ];
+
   const items = [
+    {
+      key: 'allTickets',
+      img: newIcon,
+      alt: 'sms_icon',
+      text: 'All Tickets',
+      route: '/tickets/alltickets',
+      roles: [2]
+    },
     {
       key: 'new',
       img: newIcon,
-      alt: 'sms',
+      alt: 'sms_icon',
       text: 'New',
       route: '/tickets/new',
+      roles: [3, 2]
+    },
+    {
+      key: 'in-progress',
+      img: sms_tracking,
+      alt: 'sms_tracking',
+      text: 'In-Progress',
+      route: '/mytickets/inprogress',
+      roles: [4]
+    },
+    {
+      key: 'in-progress',
+      img: sms_tracking,
+      alt: 'sms_tracking',
+      text: 'In-Progress',
+      route: '/tickets/inprogress',
       roles: [2]
     },
     {
@@ -169,15 +283,7 @@ export default function TicketHeader ({ showTabs = true })
       alt: 'sms_notification',
       text: 'Assigned To Me',
       route: '/tickets/assignedtome',
-      roles: [2]
-    },
-    {
-      key: 'in-progress',
-      img: sms_tracking,
-      alt: 'sms_tracking',
-      text: 'In-Progress',
-      route: '/mytickets/inprogress',
-      roles: [3]
+      roles: [3, 2]
     },
     {
       key: 'resolved',
@@ -185,7 +291,7 @@ export default function TicketHeader ({ showTabs = true })
       alt: 'resolved',
       text: 'Resolved',
       route: '/mytickets/resolved',
-      roles: [3]
+      roles: [4]
     },
     {
       key: 'closed',
@@ -193,7 +299,7 @@ export default function TicketHeader ({ showTabs = true })
       alt: 'closed',
       text: 'Closed',
       route: '/mytickets/closed',
-      roles: [3]
+      roles: [4]
     },
     {
       key: 'resolved',
@@ -201,7 +307,7 @@ export default function TicketHeader ({ showTabs = true })
       alt: 'resolved',
       text: 'Resolved',
       route: '/tickets/resolved',
-      roles: [2]
+      roles: [3, 2]
     },
     {
       key: 'closed',
@@ -209,8 +315,8 @@ export default function TicketHeader ({ showTabs = true })
       alt: 'closed',
       text: 'Closed',
       route: '/tickets/closed',
-      roles: [2]
-    },    
+      roles: [3, 2]
+    },
   ];
 
   const handleFieldChange = (name) => (e) =>
@@ -244,6 +350,8 @@ export default function TicketHeader ({ showTabs = true })
     item => item.roles.includes(userRoleId)
   )
 
+  const ticketFields = userRoleId === 3 ? userFields : supportFields
+
   return (
     <div className={ `w-full` }>
       <div className="flex justify-between w-full items-center border-b pb-2 border-slate-200">
@@ -260,7 +368,7 @@ export default function TicketHeader ({ showTabs = true })
                     alt={ item.alt }
                     style={ isActive ? { filter: 'brightness(0) saturate(100%) invert(77%) sepia(88%) saturate(1000%) hue-rotate(355deg) brightness(102%)' } : undefined }
                   />
-                  <span className="font-light pl-2" >{item.text}</span>
+                  <span className="font-light pl-2" >{ item.text }</span>
                 </div>
               )
             }) }
@@ -319,12 +427,10 @@ export default function TicketHeader ({ showTabs = true })
             onFieldChange={ handleFieldChange }
             className="grid-cols-1 md:grid-cols-3"
           />
-
           <div className="mt-5 border border-slate-200 p-2  ">
             <div className=" flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-base font-semibold">Attach Documents/Image</p>
             </div>
-
             <div className="grid gap-2 lg:grid-cols-[1.5fr_auto]">
               <div className="grid gap-2 sm:grid-cols-10">
                 <div className="sm:col-span-3 flex flex-col gap-2">
@@ -346,7 +452,6 @@ export default function TicketHeader ({ showTabs = true })
                 </div>
               </div>
             </div>
-
             <div className="mt-2 overflow-x-auto">
               <table className="min-w-full border-collapse text-sm">
                 <thead>

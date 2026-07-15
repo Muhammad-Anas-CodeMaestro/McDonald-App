@@ -42,7 +42,7 @@ export default function TicketDetailsView ({ ticket })
 
   return (
     <form className="space-y-2 bg-white text-slate-900">
-      <div className="grid gap-3 md:grid-cols-3">
+      <div className="grid gap-3 md:grid-cols-4">
         <TicketField label="Ticket Number" value={ details.ticketNumber } />
         <TicketField label="Ticket Date & Time" value={ details.ticketDateTime } />
         <TicketField label="User Name" value={ details.userName } />

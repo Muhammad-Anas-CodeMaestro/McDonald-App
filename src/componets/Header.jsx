@@ -10,9 +10,9 @@ export default function Header ()
       <div className='flex gap-3 items-center'>
         <img src={ align_left } alt="bars" />
         <span className='font-light text-lg'>
-          Welcome! 
+          Welcome!
           <span className="font-medium text-lg">
-            { user.name }
+            {` ${user.name}`}
           </span>
         </span>
       </div>

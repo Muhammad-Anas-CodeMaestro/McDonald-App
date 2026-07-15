@@ -1,11 +1,29 @@
+import { useState } from "react";
 import Header from "../componets/Header";
 import MainTable from "../componets/MainTable";
 import SideBar from "../componets/SideBar";
 import TicketHeader from "../componets/TicketHeader";
 import { mainTicketTableHeader, AssignedTicketData } from '../data/assignedTickets'
+import ReusableTicketModal from "../componets/ReusableTicketModal";
+import TicketDetailsView from "../componets/TicketDetailsView";
 
 export default function TicketAssigned ()
 {
+  const [isTicketModalOpen, setIsTicketModalOpen] = useState(false)
+  const [selectedTicket, setSelectedTicket] = useState(null)
+
+  const handleViewTicket = (ticket) =>
+  {
+    setSelectedTicket(ticket)
+    setIsTicketModalOpen(true)
+  }
+
+  const closeTicketModal = () =>
+  {
+    setIsTicketModalOpen(false)
+    setSelectedTicket(null)
+  }
+
   return (
     <div className="flex h-screen">
       <div>
@@ -17,7 +35,17 @@ export default function TicketAssigned ()
           <h2 className="font-semibold text-2xl">My Tickets</h2>
           <div className="bg-white p-3 shadow-lg h-fit w-full">
             <TicketHeader />
-            <MainTable headers={mainTicketTableHeader} data={AssignedTicketData}/>
+            <MainTable headers={ mainTicketTableHeader } data={ AssignedTicketData } onAction={ handleViewTicket } />
+            <ReusableTicketModal
+              open={ isTicketModalOpen }
+              onCancel={ closeTicketModal }
+              title="Updated Ticket"
+              mode="view"
+              cancelLabel="Close"
+              width={ 900 }
+            >
+              <TicketDetailsView ticket={ selectedTicket } />
+            </ReusableTicketModal>
           </div>
         </div>
       </div>
