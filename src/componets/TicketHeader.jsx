@@ -11,7 +11,7 @@ import closed from "/sms_closed.png"
 import SCV_icon from "/SCV_icon.png"
 import create_ticket from "/create_ticket.png"
 import { useLocation, useNavigate } from 'react-router-dom';
-import TicketFormFields from '../foam/TicketFormFields.jsx';
+import TicketFormFields from '../form/TicketFormFields.jsx';
 import ReusableTicketModal from './ReusableTicketModal.jsx';
 import newIcon from '/sms.png'
 import sms_notification from '/sms_notification.png'

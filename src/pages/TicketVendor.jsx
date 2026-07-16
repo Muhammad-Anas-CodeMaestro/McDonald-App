@@ -7,18 +7,21 @@ import { ticketVendorTableHeaders } from "../data/tableValues";
 import { vendorData } from "../data/ticketVendor";
 import ReusableTicketModal from "../componets/ReusableTicketModal";
 import TicketDetailsView from "../componets/TicketDetailsView";
+import VendorFollowUpSection from "../componets/VendorFollowUpSection";
 
 export default function TicketVendor ()
 {
-  const [ isTicketModalOpen, setIsTicketModalOpen ] = useState(false)
-  const [ selectedTicket, setSelectedTicket] = useState(null)
+  const [isTicketModalOpen, setIsTicketModalOpen] = useState(false)
+  const [selectedTicket, setSelectedTicket] = useState(null)
 
-  const handleTicketModal = (ticket) => {
+  const handleTicketModal = (ticket) =>
+  {
     setSelectedTicket(ticket)
     setIsTicketModalOpen(true)
   }
 
-  const closeTicketModal = () => {
+  const closeTicketModal = () =>
+  {
     setIsTicketModalOpen(false)
     setSelectedTicket(null)
   }
@@ -32,16 +35,19 @@ export default function TicketVendor ()
           <h2 className='font-semibold text-2xl'>Ticket At Vendor</h2>
           <div className="bg-white p-3 shadow-lg h-fit w-full">
             <TicketHeader showTabs={ false } />
-            <MainTable headers={ ticketVendorTableHeaders } data={ vendorData } onAction={handleTicketModal} />
+            <MainTable headers={ ticketVendorTableHeaders } data={ vendorData } onAction={ handleTicketModal } />
             <ReusableTicketModal
-              open={isTicketModalOpen}
-              onCancel={closeTicketModal}
+              open={ isTicketModalOpen }
+              onCancel={ closeTicketModal }
               title="Vendor Follow-Up"
               mode="view"
               cancelLabel="Close"
-              width={900}
+              width={ 900 }
             >
-              <TicketDetailsView ticket={selectedTicket}/>
+              <TicketDetailsView
+                ticket={ selectedTicket }
+                extraSection={<VendorFollowUpSection />}
+              />
             </ReusableTicketModal>
           </div>
         </div>

@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import McDnaldLogo from '/McDonaldM.png';
 import McDonaldFoamPic from '/McDonaldWRB.jpg';
 import { userValue } from "../data/userValue.js";
-import FormField from '../foam/FormField.jsx';
+import FormField from '../form/FormField.jsx';
 import { useAuth } from "../context/AuthContext.jsx";
 
-export default function Foam ()
+export default function Form ()
 {
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');

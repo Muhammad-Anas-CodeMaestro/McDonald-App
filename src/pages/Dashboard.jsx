@@ -6,52 +6,59 @@ import { FontAwesomeSvgIcon } from 'react-fontawesome-svg-icon';
 import { faBars, faCheckDouble, faFileCirclePlus, faFileCircleXmark, faListCheck } from '@fortawesome/free-solid-svg-icons';
 import Header from '../componets/Header';
 import { useNavigate } from 'react-router-dom';
+import { Card, Col, Row, DatePicker } from 'antd';
+import { Column } from '@ant-design/charts';
+import Analytics from '../componets/Analytics';
+import { useAuth } from '../context/AuthContext';
 
-const taskCards = [
-  {
-    icon: faFileCirclePlus,
-    title: 'New',
-    value: '2',
-    bgClass: 'bg-sky-100',
-    titleColorClass: 'text-cyan-500',
-    iconColorClass: 'text-cyan-500',
-    bubbleColorClass: 'bg-cyan-300',
-  },
-  {
-    icon: faListCheck,
-    title: 'In-progress',
-    value: '4',
-    bgClass: 'bg-green-100',
-    titleColorClass: 'text-green-600',
-    iconColorClass: 'text-green-600',
-    bubbleColorClass: 'bg-green-400',
-  },
-  {
-    icon: faCheckDouble,
-    title: 'Resolved',
-    value: '26',
-    bgClass: 'bg-blue-100',
-    titleColorClass: 'text-blue-700',
-    iconColorClass: 'text-blue-700',
-    bubbleColorClass: 'bg-cyan-200',
-  },
-  {
-    icon: faFileCircleXmark,
-    title: 'Closed',
-    value: '37',
-    bgClass: 'bg-rose-200',
-    titleColorClass: 'text-rose-700',
-    iconColorClass: 'text-rose-700',
-    bubbleColorClass: 'bg-rose-400',
-  },
-];
 
 export default function Dashboard ()
 {
+  const { user } = useAuth();
+  const canViewAnalytics = user?.roleId === 1 || user?.roleId === 2;
+  const taskCards = [
+    {
+      icon: faFileCirclePlus,
+      title: 'New',
+      value: '2',
+      bgClass: 'bg-sky-100',
+      titleColorClass: 'text-cyan-500',
+      iconColorClass: 'text-cyan-500',
+      bubbleColorClass: 'bg-cyan-300',
+    },
+    {
+      icon: faListCheck,
+      title: 'In-progress',
+      value: '4',
+      bgClass: 'bg-green-100',
+      titleColorClass: 'text-green-600',
+      iconColorClass: 'text-green-600',
+      bubbleColorClass: 'bg-green-400',
+    },
+    {
+      icon: faCheckDouble,
+      title: 'Resolved',
+      value: '26',
+      bgClass: 'bg-blue-100',
+      titleColorClass: 'text-blue-700',
+      iconColorClass: 'text-blue-700',
+      bubbleColorClass: 'bg-cyan-200',
+    },
+    {
+      icon: faFileCircleXmark,
+      title: 'Closed',
+      value: '37',
+      bgClass: 'bg-rose-200',
+      titleColorClass: 'text-rose-700',
+      iconColorClass: 'text-rose-700',
+      bubbleColorClass: 'bg-rose-400',
+    },
+  ];
+
   return (
     <div className='flex h-screen'>
       <div>
-        <SideBar/>
+        <SideBar />
       </div>
       <div className='flex flex-col w-full'>
         <Header />
@@ -65,9 +72,10 @@ export default function Dashboard ()
               )) }
             </div>
           </div>
-          <div className='flex justify-center items-center w-full h-full'>
+          { canViewAnalytics && <Analytics /> }
+          { !canViewAnalytics && <div className='flex justify-center items-center w-full h-full'>
             { <img src={ McDonaldM } alt="McDon ald's Logo" className='w-1/4 opacity-20' /> }
-          </div>
+          </div>}
         </div>
       </div>
     </div>

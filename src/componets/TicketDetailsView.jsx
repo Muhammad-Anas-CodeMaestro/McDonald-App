@@ -24,7 +24,7 @@ function TicketField ({ label, value, className = '' })
   );
 }
 
-export default function TicketDetailsView ({ ticket })
+export default function TicketDetailsView ({ ticket, extraSection })
 {
   if (!ticket) return null;
 
@@ -107,6 +107,8 @@ export default function TicketDetailsView ({ ticket })
           </table>
         </div>
       </section>
+
+      {extraSection}
 
       <details className="border border-slate-200 px-3 py-3">
         <summary className="cursor-pointer text-sm font-semibold text-slate-900">Ticket History:</summary>

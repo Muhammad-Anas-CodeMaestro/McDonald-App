@@ -19,7 +19,7 @@ export default function SideBar ()
 
   const items = [
     {
-      key: 'dashboard', img: dashboard, alt: "dashboaricon", text: 'Dashboard', route: '/dashboard', matchRoutes: [ "/dashboard"], roles: [4, 3, 2]
+      key: 'dashboard', img: dashboard, alt: "dashboaricon", text: 'Dashboard', route: '/dashboard', matchRoutes: [ "/dashboard"], roles: [4, 3, 2, 1]
     },
     { key: 'mytickets', img: ticketstar, alt: "ticketstaticon", text: 'My Tickets', route: '/mytickets/inprogress', matchRoutes: [ "/mytickets"], roles: [4] },
     { key: 'ticket', img: ticketstar, alt: "ticketicon", text: 'Tickets', route: '/tickets/new', matchRoutes: ["/tickets"], roles: [3] },
