@@ -31,9 +31,36 @@ export default function VendorFollowUpSection ()
       role: "Agent",
       email: {
         from: "Michelle Rivera",
-        to: "Sidney",
-        subject: "Mouse Not Functioning Properly",
-        body: "Dear IT Support Team..."
+        fromEmail: "michelle.rivera@example.com",
+        to: "me, Sidney, Sharon",
+        time: "9:14 AM (8 hours ago)",
+        subject: "Assistance Required: Mouse Not Functioning Properly",
+        body: `Dear IT Support Team,
+
+        I am currently experiencing an issue with my mouse. It is not responding consistently when I move or click, and I've already tried reconnecting it and restarting my computer, but the issue persists.
+
+        Could you please assist in troubleshooting this or provide a replacement if necessary? Let me know if any additional information is needed from my side.
+
+        Thank you for your support.`,
+
+        signature: `Regards,
+
+        Muhammad Imran
+        Incharge (Admin Dept.)`,
+
+        reply: {
+          from: "Sharon",
+          fromEmail: "sharon@example.com",
+          to: "me, Sidney, Michelle",
+          time: "12:56 AM (10 hours ago)",
+          subject: "Assistance Required: Mouse Not Functioning Properly",
+          body: `Dear Michelle,
+          I am currently experiencing an issue with my mouse. It is not responding consistently when I move or click, and I've already tried reconnecting it, but the issue persists.
+          Thank you for your support.`,
+          signature: `Regards,
+          Sharon A.
+          User (HR Dept.)`,
+        }
       }
     },
     {
@@ -44,9 +71,36 @@ export default function VendorFollowUpSection ()
       role: "Vendor",
       email: {
         from: "Michelle Rivera",
-        to: "Sidney",
-        subject: "Mouse Not Functioning Properly",
-        body: "Dear IT Support Team..."
+        fromEmail: "michelle.rivera@example.com",
+        to: "me, Sidney, Sharon",
+        time: "9:14 AM (8 hours ago)",
+        subject: "Assistance Required: Mouse Not Functioning Properly",
+        body: `Dear IT Support Team,
+
+        I am currently experiencing an issue with my mouse. It is not responding consistently when I move or click, and I've already tried reconnecting it and restarting my computer, but the issue persists.
+
+        Could you please assist in troubleshooting this or provide a replacement if necessary? Let me know if any additional information is needed from my side.
+
+        Thank you for your support.`,
+
+        signature: `Regards,
+
+        Muhammad Imran
+        Incharge (Admin Dept.)`,
+
+        reply: {
+          from: "Sharon",
+          fromEmail: "sharon@example.com",
+          to: "me, Sidney, Michelle",
+          time: "12:56 AM (10 hours ago)",
+          subject: "Assistance Required: Mouse Not Functioning Properly",
+          body: `Dear Michelle,
+          I am currently experiencing an issue with my mouse. It is not responding consistently when I move or click, and I've already tried reconnecting it, but the issue persists.
+          Thank you for your support.`,
+          signature: `Regards,
+          Sharon A.
+          User (HR Dept.)`,
+        }
       }
     },
     {
@@ -57,9 +111,36 @@ export default function VendorFollowUpSection ()
       role: "Agent",
       email: {
         from: "Michelle Rivera",
-        to: "Sidney",
-        subject: "Mouse Not Functioning Properly",
-        body: "Dear IT Support Team..."
+        fromEmail: "michelle.rivera@example.com",
+        to: "me, Sidney, Sharon",
+        time: "9:14 AM (8 hours ago)",
+        subject: "Assistance Required: Mouse Not Functioning Properly",
+        body: `Dear IT Support Team,
+
+        I am currently experiencing an issue with my mouse. It is not responding consistently when I move or click, and I've already tried reconnecting it and restarting my computer, but the issue persists.
+
+        Could you please assist in troubleshooting this or provide a replacement if necessary? Let me know if any additional information is needed from my side.
+
+        Thank you for your support.`,
+
+        signature: `Regards,
+
+        Muhammad Imran
+        Incharge (Admin Dept.)`,
+
+        reply: {
+          from: "Sharon",
+          fromEmail: "sharon@example.com",
+          to: "me, Sidney, Michelle",
+          time: "12:56 AM (10 hours ago)",
+          subject: "Assistance Required: Mouse Not Functioning Properly",
+          body: `Dear Michelle,
+          I am currently experiencing an issue with my mouse. It is not responding consistently when I move or click, and I've already tried reconnecting it, but the issue persists.
+          Thank you for your support.`,
+          signature: `Regards,
+          Sharon A.
+          User (HR Dept.)`,
+        }
       }
     },
   ];

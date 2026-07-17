@@ -28,7 +28,9 @@ export default function TicketVendor ()
 
   return (
     <div className="flex h-screen">
-      <SideBar />
+      <div>
+        <SideBar />
+      </div>
       <div className="flex flex-col w-full">
         <Header />
         <div className='flex flex-col gap-4 w-full h-full bg-slate-100 py-2 p-4 pr-6'>
@@ -46,7 +48,7 @@ export default function TicketVendor ()
             >
               <TicketDetailsView
                 ticket={ selectedTicket }
-                extraSection={<VendorFollowUpSection />}
+                extraSection={ <VendorFollowUpSection /> }
               />
             </ReusableTicketModal>
           </div>
