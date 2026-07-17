@@ -6,11 +6,13 @@ import TicketHeader from "../componets/TicketHeader";
 import { mainTicketTableHeader, newTicketData } from "../data/NewTicketData";
 import ReusableTicketModal from "../componets/ReusableTicketModal";
 import TicketDetailsView from "../componets/TicketDetailsView";
+import { useAuth } from "../context/AuthContext";
 
 export default function TicketsNew ()
 {
   const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
   const [selectedTicket, setSelectedTicket] = useState(null);
+  const { user } = useAuth();
 
   const handleViewTicket = (ticket) =>
   {
@@ -23,6 +25,44 @@ export default function TicketsNew ()
     setIsTicketModalOpen(false)
     setSelectedTicket(null)
   }
+
+  const ticketHistoryDummyData = [
+    {
+      date: '14/05/05',
+      time: '12:30',
+      event: 'Created',
+      user: 'Saif Khan',
+      status: 'default' // Can be 'success', 'error', 'default', 'pending'
+    },
+    {
+      date: '14/05/05',
+      time: '14:00',
+      event: 'Assigned',
+      user: 'Adam Smith',
+      status: 'default'
+    },
+    {
+      date: '15/05/05',
+      time: '15:30',
+      event: 'Send to Vendor',
+      user: 'Adam Smith',
+      status: 'default'
+    },
+    {
+      date: '17/05/05',
+      time: '11:15',
+      event: 'Resolved',
+      user: 'Adam Smith',
+      status: 'success' // Example of a different status
+    },
+    {
+      date: '18/05/05',
+      time: '16:30',
+      event: 'Closed',
+      user: 'Saif Khan',
+      status: 'default'
+    },
+  ];
 
   return (
     <div className="flex h-screen">
@@ -39,12 +79,15 @@ export default function TicketsNew ()
             <ReusableTicketModal
               open={ isTicketModalOpen }
               onCancel={ closeTicketModal }
-              title="Pick Ticket"
+              title={ user.roleId === 3 ? "Pick Ticket" : "Assign Ticket" }
               mode="view"
               cancelLabel="Close"
               width={ 900 }
             >
-              <TicketDetailsView ticket={ selectedTicket } />
+              <TicketDetailsView
+                ticket={ selectedTicket }
+                history={ticketHistoryDummyData}
+              />
             </ReusableTicketModal>
           </div>
         </div>

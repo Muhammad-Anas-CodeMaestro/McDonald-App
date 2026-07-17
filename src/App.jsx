@@ -39,6 +39,7 @@ export default function App ()
           <Route path="/tickets/resolved" element={ <ProtectedRoute><Resolved /></ProtectedRoute> } />
           <Route path="/tickets/closed" element={ <ProtectedRoute><Closed /></ProtectedRoute> } />
           <Route path="/tickets/alltickets" element={ <ProtectedRoute><AllTickets /></ProtectedRoute> } />
+          <Route path="/tickets/new" element={ <ProtectedRoute><AllTickets /></ProtectedRoute> } />
           <Route path="/tickets/inprogress" element={ <ProtectedRoute><MyTickets /></ProtectedRoute> }/>
           <Route path="/reopenrequest" element={ <ProtectedRoute><ReopenRequest /></ProtectedRoute> } />
           <Route path="/ticketvendor" element={ <ProtectedRoute><TicketVendor /></ProtectedRoute> }/>

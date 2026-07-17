@@ -1,4 +1,6 @@
 import ReusableTicketModal from "./ReusableTicketModal";
+import TicketHistory from "../componets/TicketHistory";
+import { useAuth } from "../context/AuthContext";
 
 const DEFAULT_TICKET_DETAILS = {
   userName: 'Saif Khan',
@@ -24,7 +26,7 @@ function TicketField ({ label, value, className = '' })
   );
 }
 
-export default function TicketDetailsView ({ ticket, extraSection })
+export default function TicketDetailsView ({ ticket, extraSection, history })
 {
   if (!ticket) return null;
 
@@ -39,6 +41,9 @@ export default function TicketDetailsView ({ ticket, extraSection })
     status: ticket.Status,
     description: ticket.Description || DEFAULT_TICKET_DETAILS.description,
   };
+
+  const { user } = useAuth();
+  const isPrivileged = user.roleId === 1 || user.roleId === 2
 
   return (
     <form className="space-y-2 bg-white text-slate-900">
@@ -110,13 +115,7 @@ export default function TicketDetailsView ({ ticket, extraSection })
 
       {extraSection}
 
-      <details className="border border-slate-200 px-3 py-3">
-        <summary className="cursor-pointer text-sm font-semibold text-slate-900">Ticket History:</summary>
-        <div className="mt-3 space-y-1 text-xs text-slate-600">
-          <p>Created on { details.ticketDateTime || '-' }</p>
-          <p>Status: { details.status || '-' }</p>
-        </div>
-      </details>
+      {isPrivileged && <TicketHistory history={history} />}
     </form>
   );
 }

@@ -251,7 +251,7 @@ export default function TicketHeader ({ showTabs = true })
       alt: 'sms_icon',
       text: 'All Tickets',
       route: '/tickets/alltickets',
-      roles: [2]
+      roles: [2, 1]
     },
     {
       key: 'new',
@@ -259,7 +259,7 @@ export default function TicketHeader ({ showTabs = true })
       alt: 'sms_icon',
       text: 'New',
       route: '/tickets/new',
-      roles: [3, 2]
+      roles: [3, 2, 1]
     },
     {
       key: 'in-progress',
@@ -275,7 +275,7 @@ export default function TicketHeader ({ showTabs = true })
       alt: 'sms_tracking',
       text: 'In-Progress',
       route: '/tickets/inprogress',
-      roles: [2]
+      roles: [2, 1]
     },
     {
       key: 'assignedToMe',
@@ -283,7 +283,7 @@ export default function TicketHeader ({ showTabs = true })
       alt: 'sms_notification',
       text: 'Assigned To Me',
       route: '/tickets/assignedtome',
-      roles: [3, 2]
+      roles: [3, 2, 1]
     },
     {
       key: 'resolved',
@@ -307,7 +307,7 @@ export default function TicketHeader ({ showTabs = true })
       alt: 'resolved',
       text: 'Resolved',
       route: '/tickets/resolved',
-      roles: [3, 2]
+      roles: [3, 2, 1]
     },
     {
       key: 'closed',
@@ -315,7 +315,7 @@ export default function TicketHeader ({ showTabs = true })
       alt: 'closed',
       text: 'Closed',
       route: '/tickets/closed',
-      roles: [3, 2]
+      roles: [3, 2, 1]
     },
   ];
 
