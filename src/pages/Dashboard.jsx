@@ -56,8 +56,8 @@ export default function Dashboard ()
   ];
 
   return (
-    <div className='flex h-screen'>
-      <div>
+    <div className='flex min-h-screen'>
+      <div className='self-stretch'>
         <SideBar />
       </div>
       <div className='flex flex-col w-full'>

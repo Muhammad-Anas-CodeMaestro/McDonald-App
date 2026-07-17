@@ -36,7 +36,7 @@ export default function SideBar ()
   )
 
   return (
-    <div className={ `flex flex-col items-center ${ currentPath === '/dashboard' ? 'bg-gray-200' : 'bg-slate-100' } p-4 w-52 h-full` }>
+    <div className={ `flex flex-col items-center ${ currentPath === '/dashboard' ? 'bg-gray-200' : 'bg-slate-100' } p-4 w-52 min-h-full` }>
       <div className='flex flex-col gap-1 items-center w-full'>
         <img src={ McDonaldWRBG } alt="McDonald's Logo" className='w-10' />
         <h2 className='font-medium text-xl'>McDonald's</h2>
