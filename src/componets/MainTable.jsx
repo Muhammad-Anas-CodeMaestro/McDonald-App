@@ -1,8 +1,9 @@
-import { ConfigProvider, Input, Pagination, Select, Table, Checkbox } from 'antd';
+import { ConfigProvider, Input, Pagination, Select, Table } from 'antd';
 import StatusCheck from './StatusCheck';
 import { useState, useEffect } from 'react';
 import { SearchOutlined, DeleteOutlined, UndoOutlined } from '@ant-design/icons';
-import SCV_icon from "/SCV_icon.png"
+import SCV_icon from "/SCV_icon.png";
+import { useAuth } from '../context/AuthContext';
 
 const { Option } = Select;
 
@@ -14,128 +15,233 @@ export default function MainTable ({
   onSelectionChange = null,
   disableInactiveRows = false,
   toolbarActions = null,
+  actionType = "configuration",
+  showStatusActions = false
 })
 {
-  const [pageSize, setPageSize] = useState(10)
-  const [current, setCurrent] = useState(1)
-  const [search, setSearch] = useState("")
-  const [selectedRowKeys, setSelectedRowKeys] = useState([])
+  const [pageSize, setPageSize] = useState(10);
+  const [current, setCurrent] = useState(1);
+  const [search, setSearch] = useState("");
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const { user } = useAuth();
+  const userRole = user?.roleId === 1;
 
   const columns = headers.map((header, index) => ({
     title: header,
     dataIndex: header,
     key: `${ header }-${ index }`,
     ellipsis: true,
-    onHeaderCell: () => ({ style: { whiteSpace: 'nowrap' } }),
-    onCell: () => ({ style: { whiteSpace: 'nowrap' } }),
+    onHeaderCell: () => ({
+      style: {
+        whiteSpace: 'nowrap'
+      }
+    }),
+    onCell: () => ({
+      style: {
+        whiteSpace: 'nowrap'
+      }
+    }),
     render: (value, record) =>
     {
-      if (header === 'Status') {
-        return <StatusCheck status={ value } />;
+      if (header === "Status") {
+        return (
+          <StatusCheck status={ value } />
+        );
       }
-
-      if (header === 'Action') {
-        if (value === 'forward' || value === 'view') {
-          const isForwardAction = value === 'forward';
-          const actionImage = isForwardAction ? '/frame_forward.png' : '/frame_view.png';
-          const actionAlt = isForwardAction ? 'Forward' : 'View';
-
+      if (header === "Action") {
+        if (showStatusActions) {
+          if (record["Status"] === "Active") {
+            return (
+              <div className="flex gap-2">
+                <button
+                  onClick={ () =>
+                    onAction?.("edit", record)
+                  }
+                  className="
+                  flex items-center justify-center
+                  h-6 w-6 rounded
+                  border border-blue-500
+                  text-blue-500
+                  hover:bg-blue-50
+                  "
+                >
+                  ✏️
+                </button>
+                <button
+                  onClick={ () =>
+                    onAction?.("delete", record)
+                  }
+                  className="
+                  flex items-center justify-center
+                  h-6 w-6 rounded
+                  border border-red-500
+                  text-red-500
+                  hover:bg-red-50
+                  "
+                >
+                  <DeleteOutlined />
+                </button>
+              </div>
+            );
+          }
+          if (record["Status"] === "In Active") {
+            return (
+              <button
+                onClick={ () =>
+                  onAction?.("restore", record)
+                }
+                className="
+                flex items-center justify-center
+                h-6 w-6 rounded
+                border border-blue-400
+                text-blue-500
+                hover:bg-blue-50
+                "
+              >
+                <UndoOutlined />
+              </button>
+            );
+          }
+        }
+        if (actionType === "configuration") {
+          return (
+            <div className="flex gap-2">
+              <button
+                onClick={ () =>
+                  onAction?.("edit", record)
+                }
+                className="
+                flex items-center justify-center
+                h-6 w-6 rounded
+                border border-blue-500
+                text-blue-500
+                hover:bg-blue-50
+                "
+              >
+                ✏️
+              </button>
+              <button
+                onClick={ () =>
+                  onAction?.("delete", record)
+                }
+                className="
+                flex items-center justify-center
+                h-6 w-6 rounded
+                border border-red-500
+                text-red-500
+                hover:bg-red-50
+                "
+              >
+                <DeleteOutlined />
+              </button>
+            </div>
+          );
+        }
+        if (value === "forward" || value === "view") {
+          const isForward = value === "forward";
           return (
             <button
-              type="button"
-              onClick={ () => onAction?.(record) }
-              className="flex items-center justify-center text-sm cursor-pointer"
-              aria-label={ actionAlt }
+              onClick={ () =>
+                onAction?.(record)
+              }
+              className="
+              flex items-center justify-center
+              cursor-pointer
+              "
             >
-              <img src={ actionImage } alt={ actionAlt } className="h-5 w-5" />
+              <img
+                src={
+                  isForward
+                    ? "/frame_forward.png"
+                    : "/frame_view.png"
+                }
+                className="h-5 w-5"
+              />
             </button>
           );
         }
-        
-        if (value === 'delete' || value === 'restore') {
-          const isDelete = value === 'delete';
+        if (value === "delete" || value === "restore") {
           return (
             <button
-              type="button"
-              onClick={ () => onAction?.(record) }
-              aria-label={ isDelete ? 'Delete' : 'Restore' }
-              className={ `flex items-center justify-center h-6 w-6 rounded border cursor-pointer transition-colors ${ isDelete
-                  ? 'border-red-400 text-red-500 hover:bg-red-50'
-                  : 'border-blue-400 text-blue-500 hover:bg-blue-50'
-                }` }
+              onClick={ () =>
+                onAction?.(record)
+              }
+              className="
+              flex items-center justify-center
+              h-6 w-6 rounded
+              border cursor-pointer
+              "
             >
-              { isDelete ? <DeleteOutlined /> : <UndoOutlined /> }
+              {
+                value === "delete"
+                  ?
+                  <DeleteOutlined />
+                  :
+                  <UndoOutlined />
+              }
             </button>
           );
         }
         return null;
       }
       return value;
-    },
+    }
   }));
-
   const tableDataSource = data.map((row, rowIndex) =>
   {
-    return headers.reduce((acc, header, cellIndex) =>
+    if (!Array.isArray(row)) {
+      return {
+        ...row,
+        key: rowIndex
+      };
+    }
+    return headers.reduce((acc, header, index) =>
     {
-      acc[header] = row[cellIndex];
+      acc[header] = row[index];
       return acc;
-    }, { key: rowIndex });
+    }, {
+      key: rowIndex
+    });
   });
-
-  const filteredData = tableDataSource.filter((row) =>
+  const filteredData = tableDataSource.filter(row =>
     Object.values(row)
       .join(" ")
       .toLowerCase()
       .includes(search.toLowerCase())
-  )
-
+  );
   const paginatedData = filteredData.slice(
     (current - 1) * pageSize,
     current * pageSize
-  )
-
-  // Keep selection in sync with parent
+  );
   useEffect(() =>
   {
-    onSelectionChange?.(selectedRowKeys)
-  }, [selectedRowKeys])
-
-  const rowSelection = selectable ? {
-    selectedRowKeys,
-    onChange: (keys) => setSelectedRowKeys(keys),
-    getCheckboxProps: (record) => ({
-      disabled: disableInactiveRows && record['Status'] === 'In-Active',
-    }),
-  } : undefined
-
+    onSelectionChange?.(selectedRowKeys);
+  }, [selectedRowKeys]);
+  const rowSelection = selectable
+    ? {
+      selectedRowKeys,
+      onChange: (keys) =>
+        setSelectedRowKeys(keys),
+      getCheckboxProps: (record) => ({
+        disabled:
+          disableInactiveRows &&
+          record["Status"] === "In Active"
+      })
+    }
+    : undefined;
   const rowClassName = (record) =>
-    disableInactiveRows && record['Status'] === 'In-Active' ? 'opacity-50' : ''
-
+    disableInactiveRows &&
+      record["Status"] === "In Active"
+      ?
+      "opacity-50"
+      :
+      "";
   return (
     <ConfigProvider
       theme={ {
         token: {
-          colorPrimary: '#ffb300',
-        },
-        components: {
-          Table: {
-            headerBg: '#fef3c7',
-            headerColor: '#374151',
-            headerSortActiveBg: '#fde68a',
-            borderColor: '#e5e7eb',
-            rowHoverBg: '#fffbeb',
-          },
-          Pagination: {
-            itemActiveBg: '#ffb300',
-            itemActiveColor: '#000000',
-            itemSize: 32,
-            itemBorderRadius: 4,
-          },
-          Checkbox: {
-            colorPrimary: '#ffb300',
-          },
-        },
+          colorPrimary: '#ffb300'
+        }
       } }
     >
       <div className="w-full">
@@ -143,7 +249,9 @@ export default function MainTable ({
           <div className="flex items-center gap-3">
             <Select
               value={ pageSize }
-              style={ { width: 80 } }
+              style={ {
+                width: 80
+              } }
               onChange={ (value) =>
               {
                 setPageSize(value);
@@ -154,15 +262,20 @@ export default function MainTable ({
               <Option value={ 20 }>20</Option>
               <Option value={ 50 }>50</Option>
             </Select>
-            <span className="text-sm">
+            <span>
               entries per page
             </span>
           </div>
-          <div className='flex items-center gap-3'>
+          <div className="flex items-center gap-3">
             { toolbarActions }
-            <img src={ SCV_icon } alt="scv_icon" className="h-7" />
+            {
+              !userRole &&
+              <img
+                src={ SCV_icon }
+                className="h-7"
+              />
+            }
             <Input
-              id='1'
               placeholder="Search..."
               prefix={ <SearchOutlined /> }
               value={ search }
@@ -171,7 +284,9 @@ export default function MainTable ({
                 setSearch(e.target.value);
                 setCurrent(1);
               } }
-              style={ { width: 250 } }
+              style={ {
+                width: 250
+              } }
             />
           </div>
         </div>
@@ -182,16 +297,19 @@ export default function MainTable ({
           rowKey="key"
           rowSelection={ rowSelection }
           rowClassName={ rowClassName }
-          size='small'
-          scroll={ { x: 'max-content' } }
-          style={ { border: '1px solid #e5e7eb', borderRadius: 8, padding: 0 } }
+          size="small"
+          scroll={ {
+            x: 'max-content'
+          } }
         />
-        <div className='flex justify-end mt-3'>
+        <div className="flex justify-end mt-3">
           <Pagination
             current={ current }
             pageSize={ pageSize }
             total={ filteredData.length }
-            onChange={ (page) => setCurrent(page) }
+            onChange={ (page) =>
+              setCurrent(page)
+            }
             showSizeChanger={ false }
           />
         </div>

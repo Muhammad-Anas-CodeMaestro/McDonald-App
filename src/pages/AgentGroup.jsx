@@ -5,20 +5,22 @@ import arrow from '/arrow.png';
 
 const { Option } = Select;
 
-const HEADERS = ['Serial #', 'User Name', 'Login ID', 'Department', 'Current Role', 'Status', 'Action'];
+const HEADERS = ['Serial #', 'Agent Name', 'Main Category', '2nd Category', '3rd Category'];
 
 const SEED_USERS = [
-  ['01', 'Arbaz Ahmed', 'MCD0001234', 'IT', 'User', 'Active'],
-  ['02', 'Asad Ali', 'MCD0001256', 'Finance', 'User', 'Active'],
-  ['02', 'Ather Mehmood', 'MCD0001287', 'Admin', 'User', 'In Active'],
+  ['01', 'Arbaz Ahmed', 'IT', 'Software', 'ERP'],
+  ['02', 'Asad Ali', 'IT', 'Software, Hardware', 'OS, Mouse'],
+  ['02', 'Ather Mehmood', 'IT, Admin', 'General Support, Transport', 'Cleaning Vehicle'],
 ];
 
-export default function UserRole ()
+export default function AgentGroup ()
 {
-  const [roleFilter, setRoleFilter] = useState('Admin');
+  const [roleFilter, setRoleFilter] = useState('IT');
+  const [secondRoleFilter, setSecondRoleFilter] = useState('ERP');
   const [selectedKeys, setSelectedKeys] = useState([]);
-  
-  const [users, setUsers] = useState(SEED_USERS.map(u => ({ loginId: u[2], status: u[5] })));
+
+  // Fix the missing users state from the original code
+  const [users, setUsers] = useState(SEED_USERS.map(u => ({ loginId: u[2], status: 'Active' })));
 
   const handleAction = (record) =>
   {
@@ -40,20 +42,26 @@ export default function UserRole ()
         type="primary"
         style={ { background: '#ffb300', borderColor: '#ffb300', color: '#000' } }
       >
-        <img src={arrow} alt="arrow_icone" /> Change Role
+        <img src={arrow} alt="arrow_icone" /> Change Group
       </Button>
       <Select value={ roleFilter } onChange={ setRoleFilter } style={ { width: 110 } }>
-        <Option value="All">All</Option>
-        <Option value="Admin">Admin</Option>
         <Option value="IT">IT</Option>
+        <Option value="Admin">Admin</Option>
         <Option value="Finance">Finance</Option>
+        <Option value="Software">Software</Option>
+      </Select>
+      <Select value={ secondRoleFilter } onChange={ setSecondRoleFilter } style={ { width: 110 } }>
+        <Option value="ERP">ERP</Option>
+        <Option value="OS">OS</Option>
+        <Option value="Mouse">Mouse</Option>
+        <Option value="Cleaning">Cleaning</Option>
       </Select>
     </div>
   );
 
   return (
     <GenericConfigPage
-      pageTitle="User & Role"
+      pageTitle="Agent Group"
       pageSubtitle="Configurations"
       tableHeaders={ HEADERS }
       tableData={ SEED_USERS }

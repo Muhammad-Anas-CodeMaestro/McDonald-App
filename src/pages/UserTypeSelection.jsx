@@ -22,7 +22,7 @@ export default function UserTypeSelection ()
           <img src={ mcdonaldpic } alt="mcdonald" className="w-18 h-18" />
           <p>Please choose user flow to login into system!</p>
           <div className="flex gap-15 pt-10">
-            <div className="bg-white rounded-lg text-red-500 py-4 px-18 flex flex-col gap-2 items-center cursor-pointer" onClick={ () => handleFlow(3) }>
+            <div className="bg-white rounded-lg text-red-500 py-4 px-18 flex flex-col gap-2 items-center cursor-pointer" onClick={ () => handleFlow(4) }>
               <img src={ user_dp } alt="user_dp" className="w-15 h-15" />
               <span>User Flow</span>
             </div>

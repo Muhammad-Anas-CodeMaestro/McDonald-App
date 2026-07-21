@@ -35,10 +35,10 @@ export default function AuthProvider ({ children })
     return { ok: true }
   }
 
-  function changeRole(roleId){
+  function changeRole(w){
     const updatedUser = {
       ...user,
-      roleId
+      roleId,
     };
     setUser(updatedUser)
     saveToStorage("session", updatedUser)

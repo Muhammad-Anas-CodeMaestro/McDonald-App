@@ -164,7 +164,7 @@ export default function SideBar ()
                     <div className='flex flex-col items-center'>
                       { item.submenu.map((sub) => (
                         <div onClick={ () => { navigate(sub.route) } }
-                          className={ `w-full text-center py-2 px-1 rounded cursor-pointer text-sm pl-3 hover:bg-gray-100 ${ currentPath === sub.route ? "bg-yellow-300 font-medium" : "" }` }
+                          className={ `w-full text-center py-2 px-1 rounded cursor-pointer text-sm pl-3 ${ currentPath === sub.route ? "bg-yellow-300 font-medium" : "" }` }
                           key={ sub.key }
                         >
                           <div className="flex items-center gap-2">

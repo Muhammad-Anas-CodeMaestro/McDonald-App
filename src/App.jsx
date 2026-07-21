@@ -22,6 +22,7 @@ import ConfigVendor from "./pages/ConfigVendor";
 import UserRole from "./pages/UserRole";
 import TicketPriority from "./pages/TicketPriority";
 import ResolComments from "./pages/ResolComments";
+import AgentGroup from "./pages/AgentGroup";
 
 function ProtectedRoute ({ children })
 {
@@ -59,7 +60,7 @@ export default function App ()
           <Route path="/configurations/tickettype" element={ <ProtectedRoute><TicketType /></ProtectedRoute> } />
           <Route path="/configurations/vendor" element={ <ProtectedRoute><ConfigVendor /></ProtectedRoute> } />
           <Route path="/configurations/userrole" element={ <ProtectedRoute><UserRole /></ProtectedRoute> } />
-          <Route path="/configurations/agentgroup" element={ <ProtectedRoute><SecondCategory /></ProtectedRoute> } />
+          <Route path="/configurations/agentgroup" element={ <ProtectedRoute><AgentGroup /></ProtectedRoute> } />
           <Route path="/configurations/ticketpriority" element={ <ProtectedRoute><TicketPriority /></ProtectedRoute> } />
           <Route path="/configurations/resolutioncomments" element={ <ProtectedRoute><ResolComments /></ProtectedRoute> } />
         </Routes>

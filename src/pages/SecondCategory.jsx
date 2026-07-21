@@ -1,13 +1,7 @@
-import { useState } from 'react';
-import Header from '../componets/Header.jsx';
-import SideBar from '../componets/SideBar.jsx';
-import ConfigPageHeader from '../componets/ConfigPageHeader.jsx';
-import ReusableTicketModal from '../componets/ReusableTicketModal.jsx';
-import TicketFormFields from '../form/TicketFormFields.jsx';
-import MainTable from '../componets/MainTable.jsx';
-import { useFormState } from '../hooks/useFormState.js';
+import GenericConfigPage from '../componets/GenericConfigPage.jsx';
 
 const INITIAL_FORM = {
+  mainCategory: '',
   secondCategory: '',
 };
 
@@ -29,87 +23,78 @@ const FORM_FIELDS = [
     gridClassName: 'col-span-1',
   }
 ];
-const TABLE_HEADERS = ['Serial #', 'Main Category', '2nd Category', 'Status', 'Action'];
-const TABLE_DATA = [
-  ['01', 'IT', 'Software', 'Active'],
-  ['02', 'IT', 'Hardware', 'Active'],
-  ['03', 'IT', 'Network & Email', 'In Active'],
-  ['04', 'Admin', 'General Services', 'Active'],
-  ['05', 'Admin', 'Transport', 'In Active'],
+
+const TABLE_HEADERS = [
+  'Serial #',
+  'Main Category',
+  '2nd Category',
+  'Status',
+  'Action'
 ];
 
-export default function SecondCategory ()
-{
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const { formData, handleChange, resetForm } = useFormState(INITIAL_FORM);
-  function handleOpenModal ()
+const TABLE_DATA = [
   {
-    resetForm();
-    setIsModalOpen(true);
+    Serial: '01',
+    MainCategory: 'IT',
+    secondCategory: 'Software',
+    Status: 'Active',
+  },
+  {
+    Serial: '02',
+    mainCategory: 'IT',
+    secondCategory: 'Hardware',
+    Status: 'Active',
+  },
+  {
+    Serial: '03',
+    mainCategory: 'IT',
+    secondCategory: 'Network & Email',
+    Status: 'In Active',
+  },
+  {
+    Serial: '04',
+    mainCategory: 'Admin',
+    secondCategory: 'General Services',
+    Status: 'Active',
+  },
+  {
+    Serial: '05',
+    mainCategory: 'Admin',
+    secondCategory: 'Transport',
+    Status: 'In Active',
+  },
+];
+
+function toSecondArrayRows(rows) {
+  return rows.map((r)=> [
+    r.Serial,
+    r.mainCategory,
+    r.secondCategory,
+    r.Status,
+  ])
+}
+
+function getAllSecondCategoryData(){
+  return toSecondArrayRows(TABLE_DATA)
+}
+
+export default function SecondCategory() {
+
+  function handleSave(data) {
+    console.log('Saving 2nd Category:', data);
   }
 
-  function handleCloseModal ()
-  {
-    setIsModalOpen(false);
-  }
-
-  function handleSave (e)
-  {
-    e?.preventDefault?.();
-    if (!formData.mainCategory.trim()) return;
-    alert(`Category "${ formData.mainCategory }" saved successfully.`);
-    setIsModalOpen(false);
-  }
-  
   return (
-    <div className="flex h-screen">
-      <div>
-        <SideBar />
-      </div>
-      <div className="flex flex-col w-full overflow-hidden">
-        <Header />
-        <div className="flex flex-col gap-4 w-full h-full bg-slate-50 py-2 p-4 pr-6 overflow-auto">
-          <h2 className="font-semibold text-2xl">
-            Ticket 2nd Category —{ ' ' }
-            <span className="font-normal">Configurations</span>
-          </h2>
-          <div className="bg-white p-3 shadow-lg h-fit w-full">
-            <ConfigPageHeader
-              filterFields={ [] }
-              filterData={ {} }
-              onFilterChange={ () => () => { } }
-              onFilterApply={ () => { } }
-              onAddNew={ handleOpenModal }
-              addNewLabel="Add New"
-            />
-            <div className="mt-4">
-              <MainTable
-                headers={ TABLE_HEADERS }
-                data={ TABLE_DATA }
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <ReusableTicketModal
-        open={ isModalOpen }
-        onCancel={ handleCloseModal }
-        title="Add Ticket Main Category"
-        mode="create"
-        onSubmit={ handleSave }
-        submitLabel="Save"
-        cancelLabel="Cancel"
-        width={ 420 }
-      >
-        <form onSubmit={ handleSave } className="space-y-4">
-          <TicketFormFields
-            fields={ FORM_FIELDS }
-            formData={ formData }
-            onFieldChange={ handleChange }
-            className="grid-cols-1 gap-4"
-          />
-        </form>
-      </ReusableTicketModal>
-    </div>
+    <GenericConfigPage
+      pageTitle="Ticket 2nd Category"
+      tableHeaders={TABLE_HEADERS}
+      tableData={getAllSecondCategoryData()}
+      modalTitle="Add Ticket 2nd Category"
+      formFields={FORM_FIELDS}
+      initialFormState={INITIAL_FORM}
+      onSave={handleSave}
+      config="configuration"
+      showStatusActions={true}
+    />
   );
 }
