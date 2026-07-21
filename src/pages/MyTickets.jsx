@@ -22,7 +22,7 @@ export default function MyTickets() {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex min-h-screen">
       <div>
         <Slider />
       </div>

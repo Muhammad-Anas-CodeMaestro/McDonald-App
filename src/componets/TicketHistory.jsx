@@ -6,7 +6,7 @@ export default function TicketHistory({ history = [] }) {
   const timelineItems = history.map((item) => ({
     children: (
       <div className="flex items-center justify-between w-full">
-        <span className="text-[13px] text-gray-600 whitespace-nowrap min-w-[120px]">
+        <span className="text-[13px] text-gray-600 whitespace-nowrap min-w-30">
           {item.date} &nbsp;|&nbsp; {item.time}
         </span>
 

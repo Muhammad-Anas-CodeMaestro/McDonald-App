@@ -379,7 +379,6 @@ export default function TicketHeader ({ showTabs = true })
           </div>
         ) }
         <div className="flex items-center gap-3">
-
           <img src={ slider } alt="sliderForFilter" onClick={ () => setIsFilterOpen((prev) => !prev) } className="cursor-pointer" />
           <button
             type="button"

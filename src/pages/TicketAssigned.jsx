@@ -25,7 +25,7 @@ export default function TicketAssigned ()
   }
 
   return (
-    <div className="flex h-screen">
+    <div className="flex min-h-screen">
       <div>
         <SideBar />
       </div>

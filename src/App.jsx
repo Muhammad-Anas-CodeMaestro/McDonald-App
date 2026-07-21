@@ -14,6 +14,14 @@ import TicketAssigned from "./pages/TicketAssigned";
 import ReopenRequest from "./pages/ReopenRequest";
 import EmailTickets from "./pages/EmailTickets";
 import AllTickets from "./pages/AllTickets";
+import MainCategory from "./pages/MainCategory";
+import SecondCategory from "./pages/SecondCategory";
+import ThirdCategory from "./pages/ThirdCategory";
+import TicketType from "./pages/TicketType";
+import ConfigVendor from "./pages/ConfigVendor";
+import UserRole from "./pages/UserRole";
+import TicketPriority from "./pages/TicketPriority";
+import ResolComments from "./pages/ResolComments";
 
 function ProtectedRoute ({ children })
 {
@@ -45,6 +53,15 @@ export default function App ()
           <Route path="/ticketvendor" element={ <ProtectedRoute><TicketVendor /></ProtectedRoute> }/>
           <Route path="/emailtickets" element={ <ProtectedRoute><EmailTickets /></ProtectedRoute> } />
           <Route path="/notifications" element={ <ProtectedRoute><Notification /></ProtectedRoute> } />
+          <Route path="/configurations/maincategory" element={ <ProtectedRoute><MainCategory /></ProtectedRoute> } />
+          <Route path="/configurations/secondcategory" element={ <ProtectedRoute><SecondCategory /></ProtectedRoute> } />
+          <Route path="/configurations/thirdcategory" element={ <ProtectedRoute><ThirdCategory /></ProtectedRoute> } />
+          <Route path="/configurations/tickettype" element={ <ProtectedRoute><TicketType /></ProtectedRoute> } />
+          <Route path="/configurations/vendor" element={ <ProtectedRoute><ConfigVendor /></ProtectedRoute> } />
+          <Route path="/configurations/userrole" element={ <ProtectedRoute><UserRole /></ProtectedRoute> } />
+          <Route path="/configurations/agentgroup" element={ <ProtectedRoute><SecondCategory /></ProtectedRoute> } />
+          <Route path="/configurations/ticketpriority" element={ <ProtectedRoute><TicketPriority /></ProtectedRoute> } />
+          <Route path="/configurations/resolutioncomments" element={ <ProtectedRoute><ResolComments /></ProtectedRoute> } />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

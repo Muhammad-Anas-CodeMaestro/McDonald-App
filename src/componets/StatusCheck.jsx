@@ -6,6 +6,7 @@ const statusClassMap = {
   Closed: 'bg-red-200 text-red-600',
   'Re-Open': 'bg-yellow-200 text-yellow-600',
   'Received': 'bg-blue-200 text-blue-600',
+  'Active': 'text-blue-600',
 };
 
 export default function StatusCheck ({ status }) {

@@ -7,7 +7,7 @@ import { notificationtTableHeaders, notificationData } from "../data/notificatio
 export default function Notification ()
 {
   return (
-    <div className="flex h-screen">
+    <div className="flex min- h-screen">
       <div>
         <SideBar />
       </div>
