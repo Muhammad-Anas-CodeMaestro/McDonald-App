@@ -35,7 +35,7 @@ export default function AuthProvider ({ children })
     return { ok: true }
   }
 
-  function changeRole(w){
+  function changeRole(roleId){
     const updatedUser = {
       ...user,
       roleId,

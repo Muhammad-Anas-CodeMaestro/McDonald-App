@@ -8,10 +8,46 @@ const { Option } = Select;
 const HEADERS = ['Serial #', 'User Name', 'Login ID', 'Department', 'Current Role', 'Status', 'Action'];
 
 const SEED_USERS = [
-  ['01', 'Arbaz Ahmed', 'MCD0001234', 'IT', 'User', 'Active'],
-  ['02', 'Asad Ali', 'MCD0001256', 'Finance', 'User', 'Active'],
-  ['02', 'Ather Mehmood', 'MCD0001287', 'Admin', 'User', 'In Active'],
+  {
+    serial: '01',
+    userName: 'Arbaz Ahmed',
+    loginId: 'MCD00001234',
+    department: 'IT',
+    currentRole: 'User',
+    status: 'Active'
+  },
+  {
+    serial: '02',
+    userName: 'Asad Ali',
+    loginId: 'MCD00001256',
+    department: 'Finance',
+    currentRole: 'User',
+    status: 'Active'
+  },
+  {
+    serial: '03',
+    userName: 'Ather Medmood',
+    loginId: 'MCD00001287',
+    department: 'Admin',
+    currentRole: 'User',
+    status: 'In Active'
+  },
 ];
+
+function toSeedUserDataRows(rows) {
+  return rows.map((r) => [
+    r.serial,
+    r.userName,
+    r.loginId,
+    r.department,
+    r.currentRole,
+    r.status
+  ])
+}
+
+function getAllSeedUsers(){
+  return toSeedUserDataRows(SEED_USERS)
+}
 
 export default function UserRole ()
 {
@@ -56,13 +92,13 @@ export default function UserRole ()
       pageTitle="User & Role"
       pageSubtitle="Configurations"
       tableHeaders={ HEADERS }
-      tableData={ SEED_USERS }
+      tableData={ getAllSeedUsers() }
       hideConfigHeader={ true }
       onAction={ handleAction }
       selectable={ true }
-      disableInactiveRows={ true }
       onSelectionChange={ setSelectedKeys }
       toolbarActions={ toolbarActions }
+      showStatusActions={true}
     />
   );
 }
